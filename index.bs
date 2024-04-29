@@ -265,7 +265,7 @@ The {{XRBodyJoint}} enum defines the various joints that each {{XRBody}} MUST co
 
 If an individual device does not support a joint defined in this specification, it MUST emulate it instead.
 
-The <dfn attribute for=XRBody>size</dfn> attribute MUST return the number <code>25</code>.
+The <dfn attribute for=XRBody>size</dfn> attribute MUST return the number <code>84</code>.
 
 <div class="algorithm" data-algorithm="index-joint-space">
 The <dfn method for="XRBody">get(|jointName|)</dfn> method when invoked on an {{XRBody}} [=this=] MUST run the following steps:
