@@ -142,7 +142,7 @@ Body Joints {#body-joints-section}
 
 A {{XRFrame/body}} is made up of many <dfn>body joints</dfn>.
 
-A [=body joint=] for a given body can be uniquely identified by a <dfn>body joint name</dfn>, which is an enum of type {{XRBodyJoint}}.
+A [=body joint=] for a given body can be uniquely identified by a body joint name, which is an enum of type {{XRBodyJoint}}.
 
 A [=body joint=] may have an <dfn>associated bone</dfn> that it is named after and used to orient its <code>-Z</code> axis. The [=associated bone=] of a [=body joint=] is the bone that comes after the joint when moving towards the fingertips. The tip and wrist joints have no [=associated bones=].
 
@@ -151,7 +151,6 @@ XRBody {#xrbody-interface}
 
 <pre class="idl">
 enum XRBodyJoint {
-  "root",
   "hips",
   "spine-lower",
   "spine-middle",
@@ -265,7 +264,7 @@ The {{XRBodyJoint}} enum defines the various joints that each {{XRBody}} MUST co
 
 If an individual device does not support a joint defined in this specification, it MUST emulate it instead.
 
-The <dfn attribute for=XRBody>size</dfn> attribute MUST return the number <code>25</code>.
+The <dfn attribute for=XRBody>size</dfn> attribute MUST return the number <code>83</code>.
 
 <div class="algorithm" data-algorithm="index-joint-space">
 The <dfn method for="XRBody">get(|jointName|)</dfn> method when invoked on an {{XRBody}} [=this=] MUST run the following steps:
