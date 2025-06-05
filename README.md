@@ -63,7 +63,7 @@ Per the [`LICENSE.md`](LICENSE.md) file:
 For more information about this proposal, please read the [explainer](explainer.md) and issues/PRs.
 
 <!-- Links -->
-[this-spec]: https://immersive-web.github.io/webxr-body-tracking
+[this-spec]: https://immersive-web.github.io/body-tracking/
 [CoC]: https://immersive-web.github.io/homepage/code-of-conduct.html
 [webxrwg]: https://w3.org/immersive-web
 [cgproposals]: https://github.com/immersive-web/proposals
