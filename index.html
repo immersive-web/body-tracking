@@ -1,0 +1,2384 @@
+<!doctype html><html lang="en">
+ <head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+  <title>WebXR Body Tracking Module - Level 1</title>
+  <meta content="UD" name="w3c-status">
+  <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-UD" rel="stylesheet">
+  <meta content="Bikeshed version 9a7a6709a, updated Tue May 27 16:45:34 2025 -0700" name="generator">
+  <link href="https://www.w3.org/TR/webxr-body-tracking-1/" rel="canonical">
+  <meta content="516feef118e626b2e1af70287e3e5595cfdc3a21" name="revision">
+  <meta content="dark light" name="color-scheme">
+  <link href="https://www.w3.org/StyleSheets/TR/2021/dark.css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css">
+  <link href="favicon-32x32.png" rel="icon" sizes="32x32" type="image/png">
+  <link href="favicon-96x96.png" rel="icon" sizes="96x96" type="image/png">
+<style>
+  .unstable::before {
+    content: "This section is not stable";
+    display: block;
+    font-weight: bold;
+    text-align: right;
+    color: red;
+  }
+  .unstable {
+    border: thin solid pink;
+    border-radius: .5em;
+    padding: .5em;
+    margin: .5em calc(-0.5em - 1px);
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='290'><text transform='rotate(-45)' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='70' y='210' opacity='.1'>Unstable</text></svg>");
+    background-repeat: repeat;
+    background-color: #FFF4F4;
+  }
+  .unstable h3:first-of-type {
+    margin-top: 0.5rem;
+  }
+
+  .unstable.example:not(.no-marker)::before {
+    content: "Example " counter(example) " (Unstable)";
+    float: none;
+  }
+
+  .non-normative::before {
+    content: "This section is non-normative.";
+    font-style: italic;
+  }
+  .tg {
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+  .tg th {
+    border-style: solid;
+    border-width: 1px;
+    background: var(--def-bg);
+    font-family: sans-serif;
+    font-weight: bold;
+    border-color: var(--def-border);
+  }
+  .tg td {
+    padding: 4px 5px;
+    background-color: var(--def-bg);
+    font-family: monospace;
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--def-border);
+    overflow: hidden;
+    word-break: normal;
+  }
+</style>
+<style>/* Boilerplate: style-autolinks */
+.css.css, .property.property, .descriptor.descriptor {
+    color: var(--a-normal-text);
+    font-size: inherit;
+    font-family: inherit;
+}
+.css::before, .property::before, .descriptor::before {
+    content: "‘";
+}
+.css::after, .property::after, .descriptor::after {
+    content: "’";
+}
+.property, .descriptor {
+    /* Don't wrap property and descriptor names */
+    white-space: nowrap;
+}
+.type { /* CSS value <type> */
+    font-style: italic;
+}
+pre .property::before, pre .property::after {
+    content: "";
+}
+[data-link-type="property"]::before,
+[data-link-type="propdesc"]::before,
+[data-link-type="descriptor"]::before,
+[data-link-type="value"]::before,
+[data-link-type="function"]::before,
+[data-link-type="at-rule"]::before,
+[data-link-type="selector"]::before,
+[data-link-type="maybe"]::before {
+    content: "‘";
+}
+[data-link-type="property"]::after,
+[data-link-type="propdesc"]::after,
+[data-link-type="descriptor"]::after,
+[data-link-type="value"]::after,
+[data-link-type="function"]::after,
+[data-link-type="at-rule"]::after,
+[data-link-type="selector"]::after,
+[data-link-type="maybe"]::after {
+    content: "’";
+}
+
+[data-link-type].production::before,
+[data-link-type].production::after,
+.prod [data-link-type]::before,
+.prod [data-link-type]::after {
+    content: "";
+}
+
+[data-link-type=element],
+[data-link-type=element-attr] {
+    font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace;
+    font-size: .9em;
+}
+[data-link-type=element]::before { content: "<" }
+[data-link-type=element]::after  { content: ">" }
+
+[data-link-type=biblio] {
+    white-space: pre;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --selflink-text: black;
+        --selflink-bg: silver;
+        --selflink-hover-text: white;
+    }
+}
+</style>
+<style>/* Boilerplate: style-colors */
+/* Any --*-text not paired with a --*-bg is assumed to have a transparent bg */
+:root {
+    color-scheme: light dark;
+
+    --text: black;
+    --bg: white;
+
+    --unofficial-watermark: url(https://www.w3.org/StyleSheets/TR/2016/logos/UD-watermark);
+
+    --logo-bg: #1a5e9a;
+    --logo-active-bg: #c00;
+    --logo-text: white;
+
+    --tocnav-normal-text: #707070;
+    --tocnav-normal-bg: var(--bg);
+    --tocnav-hover-text: var(--tocnav-normal-text);
+    --tocnav-hover-bg: #f8f8f8;
+    --tocnav-active-text: #c00;
+    --tocnav-active-bg: var(--tocnav-normal-bg);
+
+    --tocsidebar-text: var(--text);
+    --tocsidebar-bg: #f7f8f9;
+    --tocsidebar-shadow: rgba(0,0,0,.1);
+    --tocsidebar-heading-text: hsla(203,20%,40%,.7);
+
+    --toclink-text: var(--text);
+    --toclink-underline: #3980b5;
+    --toclink-visited-text: var(--toclink-text);
+    --toclink-visited-underline: #054572;
+
+    --heading-text: #005a9c;
+
+    --hr-text: var(--text);
+
+    --algo-border: #def;
+
+    --del-text: red;
+    --del-bg: transparent;
+    --ins-text: #080;
+    --ins-bg: transparent;
+
+    --a-normal-text: #034575;
+    --a-normal-underline: #bbb;
+    --a-visited-text: var(--a-normal-text);
+    --a-visited-underline: #707070;
+    --a-hover-bg: rgba(75%, 75%, 75%, .25);
+    --a-active-text: #c00;
+    --a-active-underline: #c00;
+
+    --blockquote-border: silver;
+    --blockquote-bg: transparent;
+    --blockquote-text: currentcolor;
+
+    --issue-border: #e05252;
+    --issue-bg: #fbe9e9;
+    --issue-text: var(--text);
+    --issueheading-text: #831616;
+
+    --example-border: #e0cb52;
+    --example-bg: #fcfaee;
+    --example-text: var(--text);
+    --exampleheading-text: #574b0f;
+
+    --note-border: #52e052;
+    --note-bg: #e9fbe9;
+    --note-text: var(--text);
+    --noteheading-text: hsl(120, 70%, 30%);
+    --notesummary-underline: silver;
+
+    --assertion-border: #aaa;
+    --assertion-bg: #eee;
+    --assertion-text: black;
+
+    --advisement-border: orange;
+    --advisement-bg: #fec;
+    --advisement-text: var(--text);
+    --advisementheading-text: #b35f00;
+
+    --warning-border: red;
+    --warning-bg: hsla(40,100%,50%,0.95);
+    --warning-text: var(--text);
+
+    --amendment-border: #330099;
+    --amendment-bg: #F5F0FF;
+    --amendment-text: var(--text);
+    --amendmentheading-text: #220066;
+
+    --def-border: #8ccbf2;
+    --def-bg: #def;
+    --def-text: var(--text);
+    --defrow-border: #bbd7e9;
+
+    --datacell-border: silver;
+
+    --indexinfo-text: #707070;
+
+    --indextable-hover-text: black;
+    --indextable-hover-bg: #f7f8f9;
+
+    --outdatedspec-bg: rgba(0, 0, 0, .5);
+    --outdatedspec-text: black;
+    --outdated-bg: maroon;
+    --outdated-text: white;
+    --outdated-shadow: red;
+
+    --editedrec-bg: darkorange;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --text: #ddd;
+        --bg: black;
+
+        --unofficial-watermark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cg fill='%23100808' transform='translate(200 200) rotate(-45) translate(-200 -200)' stroke='%23100808' stroke-width='3'%3E%3Ctext x='50%25' y='220' style='font: bold 70px sans-serif; text-anchor: middle; letter-spacing: 6px;'%3EUNOFFICIAL%3C/text%3E%3Ctext x='50%25' y='305' style='font: bold 70px sans-serif; text-anchor: middle; letter-spacing: 6px;'%3EDRAFT%3C/text%3E%3C/g%3E%3C/svg%3E");
+
+        --logo-bg: #1a5e9a;
+        --logo-active-bg: #c00;
+        --logo-text: white;
+
+        --tocnav-normal-text: #999;
+        --tocnav-normal-bg: var(--bg);
+        --tocnav-hover-text: var(--tocnav-normal-text);
+        --tocnav-hover-bg: #080808;
+        --tocnav-active-text: #f44;
+        --tocnav-active-bg: var(--tocnav-normal-bg);
+
+        --tocsidebar-text: var(--text);
+        --tocsidebar-bg: #080808;
+        --tocsidebar-shadow: rgba(255,255,255,.1);
+        --tocsidebar-heading-text: hsla(203,20%,40%,.7);
+
+        --toclink-text: var(--text);
+        --toclink-underline: #6af;
+        --toclink-visited-text: var(--toclink-text);
+        --toclink-visited-underline: #054572;
+
+        --heading-text: #8af;
+
+        --hr-text: var(--text);
+
+        --algo-border: #456;
+
+        --del-text: #f44;
+        --del-bg: transparent;
+        --ins-text: #4a4;
+        --ins-bg: transparent;
+
+        --a-normal-text: #6af;
+        --a-normal-underline: #555;
+        --a-visited-text: var(--a-normal-text);
+        --a-visited-underline: var(--a-normal-underline);
+        --a-hover-bg: rgba(25%, 25%, 25%, .2);
+        --a-active-text: #f44;
+        --a-active-underline: var(--a-active-text);
+
+        --borderedblock-bg: rgba(255, 255, 255, .05);
+
+        --blockquote-border: silver;
+        --blockquote-bg: var(--borderedblock-bg);
+        --blockquote-text: currentcolor;
+
+        --issue-border: #e05252;
+        --issue-bg: var(--borderedblock-bg);
+        --issue-text: var(--text);
+        --issueheading-text: hsl(0deg, 70%, 70%);
+
+        --example-border: hsl(50deg, 90%, 60%);
+        --example-bg: var(--borderedblock-bg);
+        --example-text: var(--text);
+        --exampleheading-text: hsl(50deg, 70%, 70%);
+
+        --note-border: hsl(120deg, 100%, 35%);
+        --note-bg: var(--borderedblock-bg);
+        --note-text: var(--text);
+        --noteheading-text: hsl(120, 70%, 70%);
+        --notesummary-underline: silver;
+
+        --assertion-border: #444;
+        --assertion-bg: var(--borderedblock-bg);
+        --assertion-text: var(--text);
+
+        --advisement-border: orange;
+        --advisement-bg: #222218;
+        --advisement-text: var(--text);
+        --advisementheading-text: #f84;
+
+        --warning-border: red;
+        --warning-bg: hsla(40,100%,20%,0.95);
+        --warning-text: var(--text);
+
+        --amendment-border: #330099;
+        --amendment-bg: #080010;
+        --amendment-text: var(--text);
+        --amendmentheading-text: #cc00ff;
+
+        --def-border: #8ccbf2;
+        --def-bg: #080818;
+        --def-text: var(--text);
+        --defrow-border: #136;
+
+        --datacell-border: silver;
+
+        --indexinfo-text: #aaa;
+
+        --indextable-hover-text: var(--text);
+        --indextable-hover-bg: #181818;
+
+        --outdatedspec-bg: rgba(255, 255, 255, .5);
+        --outdatedspec-text: black;
+        --outdated-bg: maroon;
+        --outdated-text: white;
+        --outdated-shadow: red;
+
+        --editedrec-bg: darkorange;
+    }
+    /* In case a transparent-bg image doesn't expect to be on a dark bg,
+       which is quite common in practice... */
+    img { background: white; }
+}
+</style>
+<style>/* Boilerplate: style-counters */
+body {
+    counter-reset: example figure issue;
+}
+.issue {
+    counter-increment: issue;
+}
+.issue:not(.no-marker)::before {
+    content: "Issue " counter(issue);
+}
+
+.example {
+    counter-increment: example;
+}
+.example:not(.no-marker)::before {
+    content: "Example " counter(example);
+}
+.invalid.example:not(.no-marker)::before,
+.illegal.example:not(.no-marker)::before {
+    content: "Invalid Example" counter(example);
+}
+
+figcaption {
+    counter-increment: figure;
+}
+figcaption:not(.no-marker)::before {
+    content: "Figure " counter(figure) " ";
+}
+</style>
+<style>/* Boilerplate: style-dfn-panel */
+:root {
+    --dfnpanel-bg: #ddd;
+    --dfnpanel-text: var(--text);
+    --dfnpanel-target-bg: #ffc;
+    --dfnpanel-target-outline: orange;
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --dfnpanel-bg: #222;
+        --dfnpanel-text: var(--text);
+        --dfnpanel-target-bg: #333;
+        --dfnpanel-target-outline: silver;
+    }
+}
+.dfn-panel {
+    position: absolute;
+    z-index: 35;
+    width: 20em;
+    width: 300px;
+    height: auto;
+    max-height: 500px;
+    overflow: auto;
+    padding: 0.5em 0.75em;
+    font: small Helvetica Neue, sans-serif, Droid Sans Fallback;
+    background: var(--dfnpanel-bg);
+    color: var(--dfnpanel-text);
+    border: outset 0.2em;
+    white-space: normal; /* in case it's moved into a pre */
+}
+.dfn-panel:not(.on) { display: none; }
+.dfn-panel * { margin: 0; padding: 0; text-indent: 0; }
+.dfn-panel > b { display: block; }
+.dfn-panel a { color: var(--dfnpanel-text); }
+.dfn-panel a:not(:hover) { text-decoration: none !important; border-bottom: none !important; }
+.dfn-panel a:focus {
+    outline: 5px auto Highlight;
+    outline: 5px auto -webkit-focus-ring-color;
+}
+.dfn-panel > b + b { margin-top: 0.25em; }
+.dfn-panel ul { padding: 0 0 0 1em; list-style: none; }
+.dfn-panel li a {
+    max-width: calc(300px - 1.5em - 1em);
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dfn-panel.activated {
+    display: inline-block;
+    position: fixed;
+    left: 8px;
+    bottom: 2em;
+    margin: 0 auto;
+    max-width: calc(100vw - 1.5em - .4em - .5em);
+    max-height: 30vh;
+    transition: left 1s ease-out, bottom 1s ease-out;
+}
+
+.dfn-panel .link-item:hover {
+    text-decoration: underline;
+}
+.dfn-panel .link-item .copy-icon {
+    opacity: 0;
+}
+.dfn-panel .link-item:hover .copy-icon,
+.dfn-panel .link-item .copy-icon:focus {
+    opacity: 1;
+}
+
+.dfn-panel .copy-icon {
+    display: inline-block;
+    margin-right: 0.5em;
+    width: 0.85em;
+    height: 1em;
+    border-radius: 3px;
+    background-color: #ccc;
+    cursor: pointer;
+}
+
+.dfn-panel .copy-icon .icon {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.dfn-panel .copy-icon .icon::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 1px solid black;
+    background-color: #ccc;
+    opacity: 0.25;
+    transform: translate(3px, -3px);
+}
+
+.dfn-panel .copy-icon:active .icon::before {
+    opacity: 1;
+}
+
+.dfn-paneled[role="button"] { cursor: help; }
+
+.highlighted {
+    animation: target-fade 3s;
+}
+
+@keyframes target-fade {
+    from {
+        background-color: var(--dfnpanel-target-bg);
+        outline: 5px solid var(--dfnpanel-target-outline);
+    }
+    to {
+        color: var(--a-normal-text);
+        background-color: transparent;
+        outline: transparent;
+    }
+}
+</style>
+<style>/* Boilerplate: style-idl-highlighting */
+pre.idl.highlight {
+    background: var(--borderedblock-bg, var(--def-bg));
+}
+</style>
+<style>/* Boilerplate: style-issues */
+a[href].issue-return {
+    float: right;
+    float: inline-end;
+    color: var(--issueheading-text);
+    font-weight: bold;
+    text-decoration: none;
+}
+</style>
+<style>/* Boilerplate: style-md-lists */
+/* This is a weird hack for me not yet following the commonmark spec
+   regarding paragraph and lists. */
+[data-md] > :first-child {
+    margin-top: 0;
+}
+[data-md] > :last-child {
+    margin-bottom: 0;
+}
+</style>
+<style>/* Boilerplate: style-ref-hints */
+:root {
+    --ref-hint-bg: #ddd;
+    --ref-hint-text: var(--text);
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --ref-hint-bg: #222;
+        --ref-hint-text: var(--text);
+    }
+}
+
+.ref-hint {
+    display: inline-block;
+    position: absolute;
+    z-index: 35;
+    width: 20em;
+    width: 300px;
+    height: auto;
+    max-height: 500px;
+    overflow: auto;
+    padding: 0.5em 0.5em;
+    font: small Helvetica Neue, sans-serif, Droid Sans Fallback;
+    background: var(--ref-hint-bg);
+    color: var(--ref-hint-text);
+    border: outset 0.2em;
+    white-space: normal; /* in case it's moved into a pre */
+}
+
+.ref-hint * { margin: 0; padding: 0; text-indent: 0; }
+
+.ref-hint ul { padding: 0 0 0 1em; list-style: none; }
+</style>
+<style>/* Boilerplate: style-selflinks */
+:root {
+    --selflink-text: white;
+    --selflink-bg: gray;
+    --selflink-hover-text: black;
+}
+.heading, .issue, .note, .example, li, dt {
+    position: relative;
+}
+a.self-link {
+    position: absolute;
+    top: 0;
+    left: calc(-1 * (3.5rem - 26px));
+    width: calc(3.5rem - 26px);
+    height: 2em;
+    text-align: center;
+    border: none;
+    transition: opacity .2s;
+    opacity: .5;
+}
+a.self-link:hover {
+    opacity: 1;
+}
+.heading > a.self-link {
+    font-size: 83%;
+}
+.example > a.self-link,
+.note > a.self-link,
+.issue > a.self-link {
+    /* These blocks are overflow:auto, so positioning outside
+       doesn't work. */
+    left: auto;
+    right: 0;
+}
+li > a.self-link {
+    left: calc(-1 * (3.5rem - 26px) - 2em);
+}
+dfn > a.self-link {
+    top: auto;
+    left: auto;
+    opacity: 0;
+    width: 1.5em;
+    height: 1.5em;
+    background: var(--selflink-bg);
+    color: var(--selflink-text);
+    font-style: normal;
+    transition: opacity .2s, background-color .2s, color .2s;
+}
+dfn:hover > a.self-link {
+    opacity: 1;
+}
+dfn > a.self-link:hover {
+    color: var(--selflink-hover-text);
+}
+
+a.self-link::before            { content: "¶"; }
+.heading > a.self-link::before { content: "§"; }
+dfn > a.self-link::before      { content: "#"; }
+</style>
+<style>/* Boilerplate: style-syntax-highlighting */
+code.highlight { padding: .1em; border-radius: .3em; }
+pre.highlight, pre > code.highlight { display: block; padding: 1em; margin: .5em 0; overflow: auto; border-radius: 0; }
+
+.highlight:not(.idl) { background: rgba(0, 0, 0, .03); }
+c-[a] { color: #990055 } /* Keyword.Declaration */
+c-[b] { color: #990055 } /* Keyword.Type */
+c-[c] { color: #708090 } /* Comment */
+c-[d] { color: #708090 } /* Comment.Multiline */
+c-[e] { color: #0077aa } /* Name.Attribute */
+c-[f] { color: #669900 } /* Name.Tag */
+c-[g] { color: #222222 } /* Name.Variable */
+c-[k] { color: #990055 } /* Keyword */
+c-[l] { color: #000000 } /* Literal */
+c-[m] { color: #000000 } /* Literal.Number */
+c-[n] { color: #0077aa } /* Name */
+c-[o] { color: #999999 } /* Operator */
+c-[p] { color: #999999 } /* Punctuation */
+c-[s] { color: #a67f59 } /* Literal.String */
+c-[t] { color: #a67f59 } /* Literal.String.Single */
+c-[u] { color: #a67f59 } /* Literal.String.Double */
+c-[cp] { color: #708090 } /* Comment.Preproc */
+c-[c1] { color: #708090 } /* Comment.Single */
+c-[cs] { color: #708090 } /* Comment.Special */
+c-[kc] { color: #990055 } /* Keyword.Constant */
+c-[kn] { color: #990055 } /* Keyword.Namespace */
+c-[kp] { color: #990055 } /* Keyword.Pseudo */
+c-[kr] { color: #990055 } /* Keyword.Reserved */
+c-[ld] { color: #000000 } /* Literal.Date */
+c-[nc] { color: #0077aa } /* Name.Class */
+c-[no] { color: #0077aa } /* Name.Constant */
+c-[nd] { color: #0077aa } /* Name.Decorator */
+c-[ni] { color: #0077aa } /* Name.Entity */
+c-[ne] { color: #0077aa } /* Name.Exception */
+c-[nf] { color: #0077aa } /* Name.Function */
+c-[nl] { color: #0077aa } /* Name.Label */
+c-[nn] { color: #0077aa } /* Name.Namespace */
+c-[py] { color: #0077aa } /* Name.Property */
+c-[ow] { color: #999999 } /* Operator.Word */
+c-[mb] { color: #000000 } /* Literal.Number.Bin */
+c-[mf] { color: #000000 } /* Literal.Number.Float */
+c-[mh] { color: #000000 } /* Literal.Number.Hex */
+c-[mi] { color: #000000 } /* Literal.Number.Integer */
+c-[mo] { color: #000000 } /* Literal.Number.Oct */
+c-[sb] { color: #a67f59 } /* Literal.String.Backtick */
+c-[sc] { color: #a67f59 } /* Literal.String.Char */
+c-[sd] { color: #a67f59 } /* Literal.String.Doc */
+c-[se] { color: #a67f59 } /* Literal.String.Escape */
+c-[sh] { color: #a67f59 } /* Literal.String.Heredoc */
+c-[si] { color: #a67f59 } /* Literal.String.Interpol */
+c-[sx] { color: #a67f59 } /* Literal.String.Other */
+c-[sr] { color: #a67f59 } /* Literal.String.Regex */
+c-[ss] { color: #a67f59 } /* Literal.String.Symbol */
+c-[vc] { color: #0077aa } /* Name.Variable.Class */
+c-[vg] { color: #0077aa } /* Name.Variable.Global */
+c-[vi] { color: #0077aa } /* Name.Variable.Instance */
+c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
+
+@media (prefers-color-scheme: dark) {
+    .highlight:not(.idl) { background: rgba(255, 255, 255, .05); }
+
+    c-[a] { color: #d33682 } /* Keyword.Declaration */
+    c-[b] { color: #d33682 } /* Keyword.Type */
+    c-[c] { color: #2aa198 } /* Comment */
+    c-[d] { color: #2aa198 } /* Comment.Multiline */
+    c-[e] { color: #268bd2 } /* Name.Attribute */
+    c-[f] { color: #b58900 } /* Name.Tag */
+    c-[g] { color: #cb4b16 } /* Name.Variable */
+    c-[k] { color: #d33682 } /* Keyword */
+    c-[l] { color: #657b83 } /* Literal */
+    c-[m] { color: #657b83 } /* Literal.Number */
+    c-[n] { color: #268bd2 } /* Name */
+    c-[o] { color: #657b83 } /* Operator */
+    c-[p] { color: #657b83 } /* Punctuation */
+    c-[s] { color: #6c71c4 } /* Literal.String */
+    c-[t] { color: #6c71c4 } /* Literal.String.Single */
+    c-[u] { color: #6c71c4 } /* Literal.String.Double */
+    c-[ch] { color: #2aa198 } /* Comment.Hashbang */
+    c-[cp] { color: #2aa198 } /* Comment.Preproc */
+    c-[cpf] { color: #2aa198 } /* Comment.PreprocFile */
+    c-[c1] { color: #2aa198 } /* Comment.Single */
+    c-[cs] { color: #2aa198 } /* Comment.Special */
+    c-[kc] { color: #d33682 } /* Keyword.Constant */
+    c-[kn] { color: #d33682 } /* Keyword.Namespace */
+    c-[kp] { color: #d33682 } /* Keyword.Pseudo */
+    c-[kr] { color: #d33682 } /* Keyword.Reserved */
+    c-[ld] { color: #657b83 } /* Literal.Date */
+    c-[nc] { color: #268bd2 } /* Name.Class */
+    c-[no] { color: #268bd2 } /* Name.Constant */
+    c-[nd] { color: #268bd2 } /* Name.Decorator */
+    c-[ni] { color: #268bd2 } /* Name.Entity */
+    c-[ne] { color: #268bd2 } /* Name.Exception */
+    c-[nf] { color: #268bd2 } /* Name.Function */
+    c-[nl] { color: #268bd2 } /* Name.Label */
+    c-[nn] { color: #268bd2 } /* Name.Namespace */
+    c-[py] { color: #268bd2 } /* Name.Property */
+    c-[ow] { color: #657b83 } /* Operator.Word */
+    c-[mb] { color: #657b83 } /* Literal.Number.Bin */
+    c-[mf] { color: #657b83 } /* Literal.Number.Float */
+    c-[mh] { color: #657b83 } /* Literal.Number.Hex */
+    c-[mi] { color: #657b83 } /* Literal.Number.Integer */
+    c-[mo] { color: #657b83 } /* Literal.Number.Oct */
+    c-[sa] { color: #6c71c4 } /* Literal.String.Affix */
+    c-[sb] { color: #6c71c4 } /* Literal.String.Backtick */
+    c-[sc] { color: #6c71c4 } /* Literal.String.Char */
+    c-[dl] { color: #6c71c4 } /* Literal.String.Delimiter */
+    c-[sd] { color: #6c71c4 } /* Literal.String.Doc */
+    c-[se] { color: #6c71c4 } /* Literal.String.Escape */
+    c-[sh] { color: #6c71c4 } /* Literal.String.Heredoc */
+    c-[si] { color: #6c71c4 } /* Literal.String.Interpol */
+    c-[sx] { color: #6c71c4 } /* Literal.String.Other */
+    c-[sr] { color: #6c71c4 } /* Literal.String.Regex */
+    c-[ss] { color: #6c71c4 } /* Literal.String.Symbol */
+    c-[fm] { color: #268bd2 } /* Name.Function.Magic */
+    c-[vc] { color: #cb4b16 } /* Name.Variable.Class */
+    c-[vg] { color: #cb4b16 } /* Name.Variable.Global */
+    c-[vi] { color: #cb4b16 } /* Name.Variable.Instance */
+    c-[vm] { color: #cb4b16 } /* Name.Variable.Magic */
+    c-[il] { color: #657b83 } /* Literal.Number.Integer.Long */
+}
+</style>
+<style>/* Boilerplate: style-var-click-highlighting */
+/*
+Colors were chosen in Lab using https://nixsensor.com/free-color-converter/
+D50 2deg illuminant, L in [0,100], a and b in [-128, 128]
+0 = lab(85,0,85)
+1 = lab(85,80,30)
+2 = lab(85,-40,40)
+3 = lab(85,-50,0)
+4 = lab(85,5,15)
+5 = lab(85,-10,-50)
+6 = lab(85,35,-15)
+
+For darkmode:
+0 = oklab(50%   0%  108%)
+1 = oklab(50% -51%   51%)
+2 = oklab(50% -64%  -20%)
+3 = oklab(50%   6%   19%)
+4 = oklab(50% -12%  -64%)
+5 = oklab(50%  44%  -19%)  
+6 = oklab(50% 102%   38%)
+*/
+
+[data-algorithm] var { cursor: pointer; }
+var[data-var-color] { background-color: var(--var-bg); box-shadow: 0 0 0 2px var(--var-bg); }
+
+var[data-var-color] { --var-bg: #F4D200; }
+var[data-var-color="1"] { --var-bg: #FF87A2; }
+var[data-var-color="2"] { --var-bg: #96E885; }
+var[data-var-color="3"] { --var-bg: #3EEED2; }
+var[data-var-color="4"] { --var-bg: #EACFB6; }
+var[data-var-color="5"] { --var-bg: #82DDFF; }
+var[data-var-color="6"] { --var-vg: #FFBCF2; }
+
+@media (prefers-color-scheme: dark) {
+	var[data-var-color] { --var-bg: #bc1a00; }
+	var[data-var-color="1"] { --var-bg: #007f00; }
+	var[data-var-color="2"] { --var-bg: #008698; }
+	var[data-var-color="3"] { --var-bg: #7f5b2b; }
+	var[data-var-color="4"] { --var-bg: #004df3; }
+	var[data-var-color="5"] { --var-bg: #a1248a; }
+	var[data-var-color="6"] { --var-vg: #ff0000; }
+}
+</style>
+ <body class="h-entry">
+  <div class="head">
+   <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
+   <h1 class="p-name no-ref" id="title">WebXR Body Tracking Module - Level 1</h1>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types/#UD">Unofficial Proposal Draft</a>, <time class="dt-updated" datetime="2025-06-05">5 June 2025</time></p>
+   <details open>
+    <summary>More details about this document</summary>
+    <div data-fill-with="spec-metadata">
+     <dl>
+      <dt>This version:
+      <dd><a class="u-url" href="https://immersive-web.github.io/webxr-body-tracking/">https://immersive-web.github.io/webxr-body-tracking/</a>
+      <dt>Latest published version:
+      <dd><a href="https://www.w3.org/TR/webxr-body-tracking-1/">https://www.w3.org/TR/webxr-body-tracking-1/</a>
+      <dt>Previous Versions:
+      <dd><a href="https://www.w3.org/TR/2020/WD-webxr-body-tracking-1-20210824/" rel="prev">https://www.w3.org/TR/2020/WD-webxr-body-tracking-1-20210824/</a>
+      <dt>Feedback:
+      <dd><a href="https://github.com/immersive-web/webxr-body-tracking/issues/">GitHub</a>
+      <dt class="editor">Editor:
+      <dd class="editor p-author h-card vcard"><a class="p-name fn u-email email" href="mailto:cabanier@meta.com">Rik Cabanier</a> (<span class="p-org org">Meta</span>)
+      <dt>Participate:
+      <dd><a href="https://github.com/immersive-web/webxr-body-tracking/issues/new">File an issue</a> (<a href="https://github.com/immersive-web/webxr-body-tracking/issues">open issues</a>)
+      <dd><a href="https://lists.w3.org/Archives/Public/public-immersive-web-wg/">Mailing list archive</a>
+      <dd><a href="irc://irc.w3.org:6665/">W3C’s #immersive-web IRC</a>
+     </dl>
+    </div>
+   </details>
+   <div data-fill-with="warning"></div>
+   <p class="copyright" data-fill-with="copyright"><a href="https://www.w3.org/policies/#copyright">Copyright</a> © 2025 <a href="https://www.w3.org/">World Wide Web Consortium</a>. <abbr title="World Wide Web Consortium">W3C</abbr><sup>®</sup> <a href="https://www.w3.org/policies/#Legal_Disclaimer">liability</a>, <a href="https://www.w3.org/policies/#W3C_Trademarks">trademark</a> and <a href="https://www.w3.org/copyright/software-license/" rel="license" title="W3C Software and Document License">permissive document license</a> rules apply. </p>
+   <hr title="Separator for header">
+  </div>
+  <div class="p-summary" data-fill-with="abstract">
+   <h2 class="no-num no-toc no-ref heading settled" id="abstract"><span class="content">Abstract</span></h2>
+   <p>The WebXR Body Tracking module expands the <a href="https://www.w3.org/TR/webxr/">WebXR Device API</a> with the functionality to track articulated body poses.</p>
+  </div>
+  <h2 class="no-num no-toc no-ref heading settled" id="sotd"><span class="content">Status of this document</span></h2>
+  <div data-fill-with="status">
+   <p></p>
+   <p>This WebXR Augmented Reality Module is designed as a module to be implemented in addition to <a href="https://www.w3.org/TR/webxr/">WebXR Device API</a>, and is originally included in WebXR Device API which was divided into core and modules.</p>
+  </div>
+  <div data-fill-with="at-risk"></div>
+  <nav data-fill-with="table-of-contents" id="toc">
+   <h2 class="no-num no-toc no-ref" id="contents">Table of Contents</h2>
+   <ol class="toc" role="directory">
+    <li><a href="#intro"><span class="secno">1</span> <span class="content">Introduction</span></a>
+    <li>
+     <a href="#initialization"><span class="secno">2</span> <span class="content">Initialization</span></a>
+     <ol class="toc">
+      <li><a href="#xrinputsource-interface"><span class="secno">2.1</span> <span class="content">XRFrame</span></a>
+      <li><a href="#body-joints-section"><span class="secno">2.2</span> <span class="content">Body Joints</span></a>
+      <li><a href="#xrbody-interface"><span class="secno">2.3</span> <span class="content">XRBody</span></a>
+      <li><a href="#xrjointspace-interface"><span class="secno">2.4</span> <span class="content">XRBodySpace</span></a>
+     </ol>
+    <li><a href="#privacy-security"><span class="secno">3</span> <span class="content">Privacy &amp; Security Considerations</span></a>
+    <li><a href="#changes"><span class="secno"></span> <span class="content"> Changes</span></a>
+    <li>
+     <a href="#w3c-conformance"><span class="secno"></span> <span class="content">Conformance</span></a>
+     <ol class="toc">
+      <li><a href="#w3c-conventions"><span class="secno"></span> <span class="content">Document conventions</span></a>
+     </ol>
+    <li>
+     <a href="#index"><span class="secno"></span> <span class="content">Index</span></a>
+     <ol class="toc">
+      <li><a href="#index-defined-here"><span class="secno"></span> <span class="content">Terms defined by this specification</span></a>
+      <li><a href="#index-defined-elsewhere"><span class="secno"></span> <span class="content">Terms defined by reference</span></a>
+     </ol>
+    <li>
+     <a href="#references"><span class="secno"></span> <span class="content">References</span></a>
+     <ol class="toc">
+      <li><a href="#normative"><span class="secno"></span> <span class="content">Normative References</span></a>
+      <li><a href="#informative"><span class="secno"></span> <span class="content">Informative References</span></a>
+     </ol>
+    <li><a href="#idl-index"><span class="secno"></span> <span class="content">IDL Index</span></a>
+   </ol>
+  </nav>
+  <main>
+   <h2 class="heading settled" data-level="1" id="intro"><span class="secno">1. </span><span class="content">Introduction</span><a class="self-link" href="#intro"></a></h2>
+   <section class="non-normative">
+     On some <a data-link-type="dfn" href="https://immersive-web.github.io/webxr/#xr-device" id="ref-for-xr-device">XR devices</a> it is possible to get fully articulated information about the user’s body. 
+    <p>This API exposes the poses of each of the users' <a data-link-type="dfn" href="#body-joints" id="ref-for-body-joints">body joints</a>. This can be used to render an avatar in VR scenarios.</p>
+   </section>
+   <h2 class="heading settled" data-level="2" id="initialization"><span class="secno">2. </span><span class="content">Initialization</span><a class="self-link" href="#initialization"></a></h2>
+   <p>If an application wants to get access to body information during a session,
+the session MUST be requested with an appropriate <a data-link-type="dfn" href="https://immersive-web.github.io/webxr/#feature-descriptor" id="ref-for-feature-descriptor">feature descriptor</a>. The string "<dfn class="dfn-paneled" data-dfn-for="feature descriptor" data-dfn-type="dfn" data-noexport id="feature-descriptor-body-tracking">body-tracking</dfn>" is introduced
+by this module as a new valid <a data-link-type="dfn" href="https://immersive-web.github.io/webxr/#feature-descriptor" id="ref-for-feature-descriptor①">feature descriptor</a> for articulated body tracking.</p>
+   <p>The "<a data-link-type="dfn" href="#feature-descriptor-body-tracking" id="ref-for-feature-descriptor-body-tracking">body-tracking</a>" <a data-link-type="dfn" href="https://immersive-web.github.io/webxr/#feature-descriptor" id="ref-for-feature-descriptor②">feature descriptor</a> should only be granted for an <code class="idl"><a data-link-type="idl" href="https://immersive-web.github.io/webxr/#xrsession" id="ref-for-xrsession">XRSession</a></code> when its <a data-link-type="dfn" href="https://immersive-web.github.io/webxr/#xrsession-xr-device" id="ref-for-xrsession-xr-device">XR device</a> has support for body tracking.</p>
+   <h3 class="heading settled" data-level="2.1" id="xrinputsource-interface"><span class="secno">2.1. </span><span class="content">XRFrame</span><a class="self-link" href="#xrinputsource-interface"></a></h3>
+<pre class="idl highlight def"><c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://immersive-web.github.io/webxr/#xrframe" id="ref-for-xrframe"><c- g>XRFrame</c-></a> {
+   [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SameObject" id="ref-for-SameObject"><c- g>SameObject</c-></a>] <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="#xrbody" id="ref-for-xrbody"><c- n>XRBody</c-></a>? <a class="idl-code" data-link-type="attribute" data-readonly data-type="XRBody?" href="#dom-xrframe-body" id="ref-for-dom-xrframe-body"><c- g>body</c-></a>;
+};
+</pre>
+   <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="XRFrame" data-dfn-type="attribute" data-export id="dom-xrframe-body"><code>body</code></dfn> attribute on an <a data-link-type="dfn" href="https://immersive-web.github.io/webxr/#xrsession-xr-device" id="ref-for-xrsession-xr-device①">XR Device</a> that has support for body tracking will be an <code class="idl"><a data-link-type="idl" href="#xrbody" id="ref-for-xrbody①">XRBody</a></code> object giving access to the underlying body-tracking capabilities. <code class="idl"><a data-link-type="idl" href="#dom-xrframe-body" id="ref-for-dom-xrframe-body①">body</a></code> will be set to <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this">this</a>.</p>
+   <p>If the <code class="idl"><a data-link-type="idl" href="https://immersive-web.github.io/webxr/#xrframe" id="ref-for-xrframe①">XRFrame</a></code> belongs to an <code class="idl"><a data-link-type="idl" href="https://immersive-web.github.io/webxr/#xrsession" id="ref-for-xrsession①">XRSession</a></code> that has not been requested with the "<a data-link-type="dfn" href="#feature-descriptor-body-tracking" id="ref-for-feature-descriptor-body-tracking①">body-tracking</a>" <a data-link-type="dfn" href="https://immersive-web.github.io/webxr/#feature-descriptor" id="ref-for-feature-descriptor③">feature descriptor</a>, <code class="idl"><a data-link-type="idl" href="#dom-xrframe-body" id="ref-for-dom-xrframe-body②">body</a></code> MUST be <code>null</code>.</p>
+   <h3 class="heading settled" data-level="2.2" id="body-joints-section"><span class="secno">2.2. </span><span class="content">Body Joints</span><a class="self-link" href="#body-joints-section"></a></h3>
+   <p>A <code class="idl"><a data-link-type="idl" href="#dom-xrframe-body" id="ref-for-dom-xrframe-body③">body</a></code> is made up of many <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="body-joints">body joints</dfn>.</p>
+   <p>A <a data-link-type="dfn" href="#body-joints" id="ref-for-body-joints①">body joint</a> for a given body can be uniquely identified by a body joint name, which is an enum of type <code class="idl"><a data-link-type="idl" href="#enumdef-xrbodyjoint" id="ref-for-enumdef-xrbodyjoint">XRBodyJoint</a></code>.</p>
+   <p>A <a data-link-type="dfn" href="#body-joints" id="ref-for-body-joints②">body joint</a> may have an <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="associated-bone">associated bone</dfn> that it is named after and used to orient its <code>-Z</code> axis. The <a data-link-type="dfn" href="#associated-bone" id="ref-for-associated-bone">associated bone</a> of a <a data-link-type="dfn" href="#body-joints" id="ref-for-body-joints③">body joint</a> is the bone that comes after the joint when moving towards the fingertips. The tip and wrist joints have no <a data-link-type="dfn" href="#associated-bone" id="ref-for-associated-bone①">associated bones</a>.</p>
+   <h3 class="heading settled" data-level="2.3" id="xrbody-interface"><span class="secno">2.3. </span><span class="content">XRBody</span><a class="self-link" href="#xrbody-interface"></a></h3>
+<pre class="idl highlight def"><c- b>enum</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="enum" data-export id="enumdef-xrbodyjoint"><code><c- g>XRBodyJoint</c-></code></dfn> {
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-hips"><code><c- s>"hips"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-spine-lower"><code><c- s>"spine-lower"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-spine-middle"><code><c- s>"spine-middle"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-spine-upper"><code><c- s>"spine-upper"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-chest"><code><c- s>"chest"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-neck"><code><c- s>"neck"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-head"><code><c- s>"head"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-left-shoulder"><code><c- s>"left-shoulder"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-left-scapula"><code><c- s>"left-scapula"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-left-arm-upper"><code><c- s>"left-arm-upper"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-left-arm-lower"><code><c- s>"left-arm-lower"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-left-hand-wrist-twist"><code><c- s>"left-hand-wrist-twist"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-right-shoulder"><code><c- s>"right-shoulder"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-right-scapula"><code><c- s>"right-scapula"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-right-arm-upper"><code><c- s>"right-arm-upper"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-right-arm-lower"><code><c- s>"right-arm-lower"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-right-hand-wrist-twist"><code><c- s>"right-hand-wrist-twist"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-left-hand-palm"><code><c- s>"left-hand-palm"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-left-hand-wrist"><code><c- s>"left-hand-wrist"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-left-hand-thumb-metacarpal"><code><c- s>"left-hand-thumb-metacarpal"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-left-hand-thumb-phalanx-proximal"><code><c- s>"left-hand-thumb-phalanx-proximal"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-left-hand-thumb-phalanx-distal"><code><c- s>"left-hand-thumb-phalanx-distal"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-left-hand-thumb-tip"><code><c- s>"left-hand-thumb-tip"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-left-hand-index-metacarpal"><code><c- s>"left-hand-index-metacarpal"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-left-hand-index-phalanx-proximal"><code><c- s>"left-hand-index-phalanx-proximal"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-left-hand-index-phalanx-intermediate"><code><c- s>"left-hand-index-phalanx-intermediate"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-left-hand-index-phalanx-distal"><code><c- s>"left-hand-index-phalanx-distal"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-left-hand-index-tip"><code><c- s>"left-hand-index-tip"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-left-hand-middle-phalanx-metacarpal"><code><c- s>"left-hand-middle-phalanx-metacarpal"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-left-hand-middle-phalanx-proximal"><code><c- s>"left-hand-middle-phalanx-proximal"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-left-hand-middle-phalanx-intermediate"><code><c- s>"left-hand-middle-phalanx-intermediate"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-left-hand-middle-phalanx-distal"><code><c- s>"left-hand-middle-phalanx-distal"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-left-hand-middle-tip"><code><c- s>"left-hand-middle-tip"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-left-hand-ring-metacarpal"><code><c- s>"left-hand-ring-metacarpal"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-left-hand-ring-phalanx-proximal"><code><c- s>"left-hand-ring-phalanx-proximal"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-left-hand-ring-phalanx-intermediate"><code><c- s>"left-hand-ring-phalanx-intermediate"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-left-hand-ring-phalanx-distal"><code><c- s>"left-hand-ring-phalanx-distal"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-left-hand-ring-tip"><code><c- s>"left-hand-ring-tip"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-left-hand-little-metacarpal"><code><c- s>"left-hand-little-metacarpal"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-left-hand-little-phalanx-proximal"><code><c- s>"left-hand-little-phalanx-proximal"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-left-hand-little-phalanx-intermediate"><code><c- s>"left-hand-little-phalanx-intermediate"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-left-hand-little-phalanx-distal"><code><c- s>"left-hand-little-phalanx-distal"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-left-hand-little-tip"><code><c- s>"left-hand-little-tip"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-right-hand-palm"><code><c- s>"right-hand-palm"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-right-hand-wrist"><code><c- s>"right-hand-wrist"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-right-hand-thumb-metacarpal"><code><c- s>"right-hand-thumb-metacarpal"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-right-hand-thumb-phalanx-proximal"><code><c- s>"right-hand-thumb-phalanx-proximal"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-right-hand-thumb-phalanx-distal"><code><c- s>"right-hand-thumb-phalanx-distal"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-right-hand-thumb-tip"><code><c- s>"right-hand-thumb-tip"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-right-hand-index-metacarpal"><code><c- s>"right-hand-index-metacarpal"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-right-hand-index-phalanx-proximal"><code><c- s>"right-hand-index-phalanx-proximal"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-right-hand-index-phalanx-intermediate"><code><c- s>"right-hand-index-phalanx-intermediate"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-right-hand-index-phalanx-distal"><code><c- s>"right-hand-index-phalanx-distal"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-right-hand-index-tip"><code><c- s>"right-hand-index-tip"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-right-hand-middle-metacarpal"><code><c- s>"right-hand-middle-metacarpal"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-right-hand-middle-phalanx-proximal"><code><c- s>"right-hand-middle-phalanx-proximal"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-right-hand-middle-phalanx-intermediate"><code><c- s>"right-hand-middle-phalanx-intermediate"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-right-hand-middle-phalanx-distal"><code><c- s>"right-hand-middle-phalanx-distal"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-right-hand-middle-tip"><code><c- s>"right-hand-middle-tip"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-right-hand-ring-metacarpal"><code><c- s>"right-hand-ring-metacarpal"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-right-hand-ring-phalanx-proximal"><code><c- s>"right-hand-ring-phalanx-proximal"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-right-hand-ring-phalanx-intermediate"><code><c- s>"right-hand-ring-phalanx-intermediate"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-right-hand-ring-phalanx-distal"><code><c- s>"right-hand-ring-phalanx-distal"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-right-hand-ring-tip"><code><c- s>"right-hand-ring-tip"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-right-hand-little-metacarpal"><code><c- s>"right-hand-little-metacarpal"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-right-hand-little-phalanx-proximal"><code><c- s>"right-hand-little-phalanx-proximal"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-right-hand-little-phalanx-intermediate"><code><c- s>"right-hand-little-phalanx-intermediate"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-right-hand-little-phalanx-distal"><code><c- s>"right-hand-little-phalanx-distal"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-right-hand-little-tip"><code><c- s>"right-hand-little-tip"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-left-upper-leg"><code><c- s>"left-upper-leg"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-left-lower-leg"><code><c- s>"left-lower-leg"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-left-foot-ankle-twist"><code><c- s>"left-foot-ankle-twist"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-left-foot-ankle"><code><c- s>"left-foot-ankle"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-left-foot-subtalar"><code><c- s>"left-foot-subtalar"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-left-foot-transverse"><code><c- s>"left-foot-transverse"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-left-foot-ball"><code><c- s>"left-foot-ball"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-right-upper-leg"><code><c- s>"right-upper-leg"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-right-lower-leg"><code><c- s>"right-lower-leg"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-right-foot-ankle-twist"><code><c- s>"right-foot-ankle-twist"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-right-foot-ankle"><code><c- s>"right-foot-ankle"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-right-foot-subtalar"><code><c- s>"right-foot-subtalar"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-right-foot-transverse"><code><c- s>"right-foot-transverse"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodyJoint" data-dfn-type="enum-value" data-export id="dom-xrbodyjoint-right-foot-ball"><code><c- s>"right-foot-ball"</c-></code></dfn>
+};
+
+[<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed"><c- g>Exposed</c-></a>=<c- n>Window</c->]
+<c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="xrbody"><code><c- g>XRBody</c-></code></dfn> {
+    <c- b>iterable</c->&lt;<a data-link-type="idl-name" href="#enumdef-xrbodyjoint" id="ref-for-enumdef-xrbodyjoint①"><c- n>XRBodyJoint</c-></a>, <a data-link-type="idl-name" href="#xrbodyspace" id="ref-for-xrbodyspace"><c- n>XRBodySpace</c-></a>>;
+
+    <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="unsigned long" href="#dom-xrbody-size" id="ref-for-dom-xrbody-size"><c- g>size</c-></a>;
+    <a data-link-type="idl-name" href="#xrbodyspace" id="ref-for-xrbodyspace①"><c- n>XRBodySpace</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="XRBody" data-dfn-type="method" data-export data-lt="get(key)" id="dom-xrbody-get"><code><c- g>get</c-></code></dfn>(<a data-link-type="idl-name" href="#enumdef-xrbodyjoint" id="ref-for-enumdef-xrbodyjoint②"><c- n>XRBodyJoint</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="XRBody/get(key)" data-dfn-type="argument" data-export id="dom-xrbody-get-key-key"><code><c- g>key</c-></code></dfn>);
+};
+</pre>
+   <p>The <code class="idl"><a data-link-type="idl" href="#enumdef-xrbodyjoint" id="ref-for-enumdef-xrbodyjoint③">XRBodyJoint</a></code> enum defines the various joints that each <code class="idl"><a data-link-type="idl" href="#xrbody" id="ref-for-xrbody②">XRBody</a></code> MUST contain.</p>
+   <div class="algorithm" data-algorithm="XRBody.[[joints]]">
+     Each <code class="idl"><a data-link-type="idl" href="#xrbody" id="ref-for-xrbody③">XRBody</a></code> object has a <dfn class="dfn-paneled idl-code" data-dfn-for="XRBody" data-dfn-type="attribute" data-export id="dom-xrbody-joints-slot"><code>[[joints]]</code></dfn> internal slot,
+    which is an <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map">ordered map</a> of pairs with the key of type <code class="idl"><a data-link-type="idl" href="#enumdef-xrbodyjoint" id="ref-for-enumdef-xrbodyjoint④">XRBodyJoint</a></code> and the value of type <code class="idl"><a data-link-type="idl" href="#xrbodyspace" id="ref-for-xrbodyspace②">XRBodySpace</a></code>. 
+    <p>The ordering of the <code class="idl"><a data-link-type="idl" href="#dom-xrbody-joints-slot" id="ref-for-dom-xrbody-joints-slot">[[joints]]</a></code> internal slot is given by the <code class="idl"><a data-link-type="idl" href="#enumdef-xrbodyjoint" id="ref-for-enumdef-xrbodyjoint⑤">list of joints</a></code> under <a data-link-type="dfn" href="#body-joints" id="ref-for-body-joints④">body joints</a>.</p>
+    <p><code class="idl"><a data-link-type="idl" href="#dom-xrbody-joints-slot" id="ref-for-dom-xrbody-joints-slot①">[[joints]]</a></code> MUST NOT change over the course of a session.</p>
+   </div>
+   <div class="algorithm" data-algorithm="XRBody.iterator"> The <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-value-pairs-to-iterate-over" id="ref-for-dfn-value-pairs-to-iterate-over">value pairs to iterate over</a> for an <code class="idl"><a data-link-type="idl" href="#xrbody" id="ref-for-xrbody④">XRBody</a></code> object are the list of <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#value-pair" id="ref-for-value-pair">value pairs</a> with the key being
+    the <code class="idl"><a data-link-type="idl" href="#enumdef-xrbodyjoint" id="ref-for-enumdef-xrbodyjoint⑥">XRBodyJoint</a></code> and the value being the <code class="idl"><a data-link-type="idl" href="#xrbodyspace" id="ref-for-xrbodyspace③">XRBodySpace</a></code> corresponding to that <code class="idl"><a data-link-type="idl" href="#enumdef-xrbodyjoint" id="ref-for-enumdef-xrbodyjoint⑦">XRBodyJoint</a></code>, ordered by <code class="idl"><a data-link-type="idl" href="#enumdef-xrbodyjoint" id="ref-for-enumdef-xrbodyjoint⑧">list of joints</a></code>}
+    under <a data-link-type="dfn" href="#body-joints" id="ref-for-body-joints⑤">body joints</a>. </div>
+   <p>If an individual device does not support a joint defined in this specification, it MUST emulate it instead.</p>
+   <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="XRBody" data-dfn-type="attribute" data-export id="dom-xrbody-size"><code>size</code></dfn> attribute MUST return the number <code>83</code>.</p>
+   <div class="algorithm" data-algorithm="index-joint-space">
+     The <dfn class="dfn-paneled idl-code" data-dfn-for="XRBody" data-dfn-type="method" data-export id="dom-xrbody-get-jointname"><code>get(<var>jointName</var>)</code></dfn> method when invoked on an <code class="idl"><a data-link-type="idl" href="#xrbody" id="ref-for-xrbody⑤">XRBody</a></code> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①">this</a> MUST run the following steps: 
+    <ol>
+     <li data-md>
+      <p>Let <var>joints</var> be the value of <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this②">this</a>’s <code class="idl"><a data-link-type="idl" href="#dom-xrbody-joints-slot" id="ref-for-dom-xrbody-joints-slot②">[[joints]]</a></code> internal slot.</p>
+     <li data-md>
+      <p>Return <var>joints</var>[<var>jointName</var>]. (This implies returning <code>undefined</code> for unknown <var>jointName</var>.)</p>
+    </ol>
+   </div>
+   <h3 class="heading settled" data-level="2.4" id="xrjointspace-interface"><span class="secno">2.4. </span><span class="content">XRBodySpace</span><a class="self-link" href="#xrjointspace-interface"></a></h3>
+<pre class="idl highlight def">[<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed①"><c- g>Exposed</c-></a>=<c- n>Window</c->]
+<c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="xrbodyspace"><code><c- g>XRBodySpace</c-></code></dfn>: <a data-link-type="idl-name" href="https://immersive-web.github.io/webxr/#xrspace" id="ref-for-xrspace"><c- n>XRSpace</c-></a> {
+  <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="#enumdef-xrbodyjoint" id="ref-for-enumdef-xrbodyjoint⑨"><c- n>XRBodyJoint</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="XRBodySpace" data-dfn-type="attribute" data-export data-readonly data-type="XRBodyJoint" id="dom-xrbodyspace-jointname"><code><c- g>jointName</c-></code></dfn>;
+};
+</pre>
+   <p>The <a data-link-type="dfn" href="https://immersive-web.github.io/webxr/#xrspace-native-origin" id="ref-for-xrspace-native-origin">native origin</a> of an <code class="idl"><a data-link-type="idl" href="#xrbodyspace" id="ref-for-xrbodyspace④">XRBodySpace</a></code> is the position and orientation of the underlying <a data-link-type="dfn" href="#xrbodyspace-joint" id="ref-for-xrbodyspace-joint">joint</a>.</p>
+   <p>The <a data-link-type="dfn" href="https://immersive-web.github.io/webxr/#xrspace-native-origin" id="ref-for-xrspace-native-origin①">native origin</a> of the <code class="idl"><a data-link-type="idl" href="#xrbodyspace" id="ref-for-xrbodyspace⑤">XRBodySpace</a></code> may only be reported when <a data-link-type="dfn" href="https://immersive-web.github.io/webxr/#xrspace-native-origin" id="ref-for-xrspace-native-origin②">native origins</a> of all other <code class="idl"><a data-link-type="idl" href="#xrbodyspace" id="ref-for-xrbodyspace⑥">XRBodySpace</a></code>s on the same <a data-link-type="dfn" href="#xrbodyspace-body" id="ref-for-xrbodyspace-body">body</a> are being reported. When a body is partially obscured the user agent MUST either emulate the obscured joints, or report null poses for all of the joints.</p>
+   <p class="note" role="note"><span class="marker">Note:</span> This means that when fetching poses you will either get an entire body or none of it.</p>
+   <p>The <a data-link-type="dfn" href="https://immersive-web.github.io/webxr/#xrspace-native-origin" id="ref-for-xrspace-native-origin③">native origin</a> has its <code>-Y</code> direction pointing perpendicular to the skin, outwards from the palm, and <code>-Z</code> direction pointing along their associated bone, away from the wrist.</p>
+   <p>For tip <a data-link-type="dfn" href="#body-joints" id="ref-for-body-joints⑥">body joints</a> where there is no <a data-link-type="dfn" href="#associated-bone" id="ref-for-associated-bone②">associated bone</a>, the <code>-Z</code> direction is the same as that for the associated distal joint, i.e. the direction is along that of the previous bone.</p>
+   <p>The <code class="idl"><a data-link-type="idl" href="#dom-xrbodyjoint-left-hand-wrist" id="ref-for-dom-xrbodyjoint-left-hand-wrist">left-hand-wrist</a></code> and <code class="idl"><a data-link-type="idl" href="#dom-xrbodyjoint-right-hand-wrist" id="ref-for-dom-xrbodyjoint-right-hand-wrist">right-hand-wrist</a></code> <a data-link-type="dfn" href="#body-joints" id="ref-for-body-joints⑦">body joints</a> are located at the pivot point of the wrist, which is location invariant when twisting the hand without moving the forearm. The backward (+Z) direction is parallel to the line from wrist joint to middle finger metacarpal joint, and points away from the finger tips. The up (+Y) direction points out towards back of the hand and perpendicular to the skin at wrist. The X direction is perpendicular to the Y and Z directions and follows the right hand rule.</p>
+   <p>The <code class="idl"><a data-link-type="idl" href="#dom-xrbodyjoint-left-hand-palm" id="ref-for-dom-xrbodyjoint-left-hand-palm">left-hand-palm</a></code> and <code class="idl"><a data-link-type="idl" href="#dom-xrbodyjoint-right-hand-palm" id="ref-for-dom-xrbodyjoint-right-hand-palm">right-hand-palm</a></code> <a data-link-type="dfn" href="#body-joints" id="ref-for-body-joints⑧">body joints</a> are located at the center of the middle finger’s metacarpal bone. The backward (+Z) direction is parallel to the middle finger’s metacarpal bone, and points away from the finger tips. The up (+Y) direction is perpendicular to palm surface and pointing towards the back of the hand. The X direction is perpendicular to the Y and Z directions and follows the right hand rule.</p>
+   <p>Every <code class="idl"><a data-link-type="idl" href="#xrbodyspace" id="ref-for-xrbodyspace⑦">XRBodySpace</a></code> has an associated <dfn class="dfn-paneled" data-dfn-for="XRBodySpace" data-dfn-type="dfn" data-noexport id="xrbodyspace-body">body</dfn>, which is the <code class="idl"><a data-link-type="idl" href="#xrbody" id="ref-for-xrbody⑥">XRBody</a></code> that created it.</p>
+   <p><dfn class="dfn-paneled" data-dfn-for="XRBodySpace" data-dfn-type="dfn" data-noexport id="xrbodyspace-jointname">jointName</dfn> returns the joint name of the joint it tracks.</p>
+   <p>Every <code class="idl"><a data-link-type="idl" href="#xrbodyspace" id="ref-for-xrbodyspace⑧">XRBodySpace</a></code> has an associated <dfn class="dfn-paneled" data-dfn-for="XRBodySpace" data-dfn-type="dfn" data-noexport id="xrbodyspace-joint">joint</dfn>, which is the <a data-link-type="dfn" href="#body-joints" id="ref-for-body-joints⑨">body joint</a> corresponding to the <a data-link-type="dfn" href="#xrbodyspace-jointname" id="ref-for-xrbodyspace-jointname">jointName</a>.</p>
+   <h2 class="heading settled" data-level="3" id="privacy-security"><span class="secno">3. </span><span class="content">Privacy &amp; Security Considerations</span><a class="self-link" href="#privacy-security"></a></h2>
+    The WebXR Body Tracking API is a powerful feature that carries significant privacy risks. 
+   <p>Since this feature MAY return new sensor data, the User Agent MUST ask for <a data-link-type="dfn" href="https://immersive-web.github.io/webxr/#explicit-consent" id="ref-for-explicit-consent">explicit consent</a> from the user at session creation time.</p>
+   <p>Data returned from this API, MUST NOT be so specific that one can detect individual users.
+If the underlying hardware returns data that is too precise, the User Agent MUST anonymize this data
+before revealing it through the WebXR Body Tracking API.</p>
+   <p>This API MUST only be supported in XRSessions created with XRSessionMode of <code class="idl"><a data-link-type="idl" href="https://immersive-web.github.io/webxr/#dom-xrsessionmode-immersive-vr" id="ref-for-dom-xrsessionmode-immersive-vr">"immersive-vr"</a></code> or <code class="idl"><a data-link-type="idl" href="https://immersive-web.github.io/webxr-ar-module/#dom-xrsessionmode-immersive-ar" id="ref-for-dom-xrsessionmode-immersive-ar">"immersive-ar"</a></code>. <code class="idl"><a data-link-type="idl" href="https://immersive-web.github.io/webxr/#dom-xrsessionmode-inline" id="ref-for-dom-xrsessionmode-inline">"inline"</a></code> sessions MUST not support this API.</p>
+   <div class="note" role="note">
+     When anonymizing the body data, the UA can follow these guidelines: 
+    <ul>
+     <li data-md>
+      <p>Noising is discouraged in favour of rounding.</p>
+     <li data-md>
+      <p>If the UA uses rounding, each joint must not be rounded independently. Instead the correct way to round is to map each body to a static body-model.</p>
+     <li data-md>
+      <p>If noising, the noised data must not reveal any information over time:</p>
+      <ul>
+       <li data-md>
+        <p>Each new WebXR session in the same <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#browsing-context" id="ref-for-browsing-context">browsing context</a> must use the same noise to make sure that the data cannot be de-noised by creating multiple sessions.</p>
+       <li data-md>
+        <p>Each new <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#browsing-context" id="ref-for-browsing-context①">browsing context</a> must use a different noise vector.</p>
+       <li data-md>
+        <p>Any seed used to initialize the noise must not be predictable.</p>
+      </ul>
+     <li data-md>
+      <p>Anonymization must be done in a trusted environment.</p>
+    </ul>
+   </div>
+   <h2 class="no-num heading settled" id="changes"><span class="content"> Changes</span><a class="self-link" href="#changes"></a></h2>
+  </main>
+  <div data-fill-with="conformance">
+   <h2 class="no-ref no-num heading settled" id="w3c-conformance"><span class="content">Conformance</span><a class="self-link" href="#w3c-conformance"></a></h2>
+   <h3 class="no-ref no-num heading settled" id="w3c-conventions"><span class="content">Document conventions</span><a class="self-link" href="#w3c-conventions"></a></h3>
+   <p>Conformance requirements are expressed
+    with a combination of descriptive assertions
+    and RFC 2119 terminology.
+    The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL”
+    in the normative parts of this document
+    are to be interpreted as described in RFC 2119.
+    However, for readability,
+    these words do not appear in all uppercase letters in this specification. </p>
+   <p>All of the text of this specification is normative
+    except sections explicitly marked as non-normative, examples, and notes. <a data-link-type="biblio" href="#biblio-rfc2119" title="Key words for use in RFCs to Indicate Requirement Levels">[RFC2119]</a> </p>
+   <p>Examples in this specification are introduced with the words “for example”
+    or are set apart from the normative text
+    with <code>class="example"</code>,
+    like this: </p>
+   <div class="example" id="w3c-example">
+    <a class="self-link" href="#w3c-example"></a> 
+    <p>This is an example of an informative example. </p>
+   </div>
+   <p>Informative notes begin with the word “Note”
+    and are set apart from the normative text
+    with <code>class="note"</code>,
+    like this: </p>
+   <p class="note" role="note">Note, this is an informative note.</p>
+  </div>
+  <script src="https://www.w3.org/scripts/TR/2021/fixup.js"></script>
+  <h2 class="no-num no-ref heading settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
+  <h3 class="no-num no-ref heading settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
+  <ul class="index">
+   <li><a href="#associated-bone">associated bone</a><span>, in § 2.2</span>
+   <li>
+    body
+    <ul>
+     <li><a href="#dom-xrframe-body">attribute for XRFrame</a><span>, in § 2.1</span>
+     <li><a href="#xrbodyspace-body">dfn for XRBodySpace</a><span>, in § 2.4</span>
+    </ul>
+   <li><a href="#body-joints">body joints</a><span>, in § 2.2</span>
+   <li><a href="#feature-descriptor-body-tracking">body-tracking</a><span>, in § 2</span>
+   <li><a href="#dom-xrbodyjoint-chest">"chest"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbody-get-jointname">get(jointName)</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbody-get">get(key)</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-head">"head"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-hips">"hips"</a><span>, in § 2.3</span>
+   <li><a href="#xrbodyspace-joint">joint</a><span>, in § 2.4</span>
+   <li>
+    jointName
+    <ul>
+     <li><a href="#dom-xrbodyspace-jointname">attribute for XRBodySpace</a><span>, in § 2.4</span>
+     <li><a href="#xrbodyspace-jointname">dfn for XRBodySpace</a><span>, in § 2.4</span>
+    </ul>
+   <li><a href="#dom-xrbody-joints-slot">[[joints]]</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-left-arm-lower">"left-arm-lower"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-left-arm-upper">"left-arm-upper"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-left-foot-ankle">"left-foot-ankle"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-left-foot-ankle-twist">"left-foot-ankle-twist"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-left-foot-ball">"left-foot-ball"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-left-foot-subtalar">"left-foot-subtalar"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-left-foot-transverse">"left-foot-transverse"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-left-hand-index-metacarpal">"left-hand-index-metacarpal"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-left-hand-index-phalanx-distal">"left-hand-index-phalanx-distal"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-left-hand-index-phalanx-intermediate">"left-hand-index-phalanx-intermediate"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-left-hand-index-phalanx-proximal">"left-hand-index-phalanx-proximal"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-left-hand-index-tip">"left-hand-index-tip"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-left-hand-little-metacarpal">"left-hand-little-metacarpal"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-left-hand-little-phalanx-distal">"left-hand-little-phalanx-distal"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-left-hand-little-phalanx-intermediate">"left-hand-little-phalanx-intermediate"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-left-hand-little-phalanx-proximal">"left-hand-little-phalanx-proximal"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-left-hand-little-tip">"left-hand-little-tip"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-left-hand-middle-phalanx-distal">"left-hand-middle-phalanx-distal"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-left-hand-middle-phalanx-intermediate">"left-hand-middle-phalanx-intermediate"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-left-hand-middle-phalanx-metacarpal">"left-hand-middle-phalanx-metacarpal"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-left-hand-middle-phalanx-proximal">"left-hand-middle-phalanx-proximal"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-left-hand-middle-tip">"left-hand-middle-tip"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-left-hand-palm">"left-hand-palm"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-left-hand-ring-metacarpal">"left-hand-ring-metacarpal"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-left-hand-ring-phalanx-distal">"left-hand-ring-phalanx-distal"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-left-hand-ring-phalanx-intermediate">"left-hand-ring-phalanx-intermediate"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-left-hand-ring-phalanx-proximal">"left-hand-ring-phalanx-proximal"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-left-hand-ring-tip">"left-hand-ring-tip"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-left-hand-thumb-metacarpal">"left-hand-thumb-metacarpal"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-left-hand-thumb-phalanx-distal">"left-hand-thumb-phalanx-distal"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-left-hand-thumb-phalanx-proximal">"left-hand-thumb-phalanx-proximal"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-left-hand-thumb-tip">"left-hand-thumb-tip"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-left-hand-wrist">"left-hand-wrist"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-left-hand-wrist-twist">"left-hand-wrist-twist"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-left-lower-leg">"left-lower-leg"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-left-scapula">"left-scapula"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-left-shoulder">"left-shoulder"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-left-upper-leg">"left-upper-leg"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-neck">"neck"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-right-arm-lower">"right-arm-lower"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-right-arm-upper">"right-arm-upper"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-right-foot-ankle">"right-foot-ankle"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-right-foot-ankle-twist">"right-foot-ankle-twist"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-right-foot-ball">"right-foot-ball"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-right-foot-subtalar">"right-foot-subtalar"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-right-foot-transverse">"right-foot-transverse"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-right-hand-index-metacarpal">"right-hand-index-metacarpal"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-right-hand-index-phalanx-distal">"right-hand-index-phalanx-distal"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-right-hand-index-phalanx-intermediate">"right-hand-index-phalanx-intermediate"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-right-hand-index-phalanx-proximal">"right-hand-index-phalanx-proximal"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-right-hand-index-tip">"right-hand-index-tip"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-right-hand-little-metacarpal">"right-hand-little-metacarpal"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-right-hand-little-phalanx-distal">"right-hand-little-phalanx-distal"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-right-hand-little-phalanx-intermediate">"right-hand-little-phalanx-intermediate"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-right-hand-little-phalanx-proximal">"right-hand-little-phalanx-proximal"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-right-hand-little-tip">"right-hand-little-tip"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-right-hand-middle-metacarpal">"right-hand-middle-metacarpal"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-right-hand-middle-phalanx-distal">"right-hand-middle-phalanx-distal"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-right-hand-middle-phalanx-intermediate">"right-hand-middle-phalanx-intermediate"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-right-hand-middle-phalanx-proximal">"right-hand-middle-phalanx-proximal"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-right-hand-middle-tip">"right-hand-middle-tip"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-right-hand-palm">"right-hand-palm"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-right-hand-ring-metacarpal">"right-hand-ring-metacarpal"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-right-hand-ring-phalanx-distal">"right-hand-ring-phalanx-distal"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-right-hand-ring-phalanx-intermediate">"right-hand-ring-phalanx-intermediate"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-right-hand-ring-phalanx-proximal">"right-hand-ring-phalanx-proximal"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-right-hand-ring-tip">"right-hand-ring-tip"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-right-hand-thumb-metacarpal">"right-hand-thumb-metacarpal"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-right-hand-thumb-phalanx-distal">"right-hand-thumb-phalanx-distal"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-right-hand-thumb-phalanx-proximal">"right-hand-thumb-phalanx-proximal"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-right-hand-thumb-tip">"right-hand-thumb-tip"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-right-hand-wrist">"right-hand-wrist"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-right-hand-wrist-twist">"right-hand-wrist-twist"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-right-lower-leg">"right-lower-leg"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-right-scapula">"right-scapula"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-right-shoulder">"right-shoulder"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-right-upper-leg">"right-upper-leg"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbody-size">size</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-spine-lower">"spine-lower"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-spine-middle">"spine-middle"</a><span>, in § 2.3</span>
+   <li><a href="#dom-xrbodyjoint-spine-upper">"spine-upper"</a><span>, in § 2.3</span>
+   <li><a href="#xrbody">XRBody</a><span>, in § 2.3</span>
+   <li><a href="#enumdef-xrbodyjoint">XRBodyJoint</a><span>, in § 2.3</span>
+   <li><a href="#xrbodyspace">XRBodySpace</a><span>, in § 2.4</span>
+  </ul>
+  <h3 class="no-num no-ref heading settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
+  <ul class="index">
+   <li>
+    <a data-link-type="biblio">[HTML]</a> defines the following terms:
+    <ul>
+     <li><span class="dfn-paneled" id="faf954d6">browsing context</span>
+    </ul>
+   <li>
+    <a data-link-type="biblio">[INFRA]</a> defines the following terms:
+    <ul>
+     <li><span class="dfn-paneled" id="84b454ff">ordered map</span>
+    </ul>
+   <li>
+    <a data-link-type="biblio">[WEBIDL]</a> defines the following terms:
+    <ul>
+     <li><span class="dfn-paneled" id="889e932f">Exposed</span>
+     <li><span class="dfn-paneled" id="a5c91173">SameObject</span>
+     <li><span class="dfn-paneled" id="4013a022">this</span>
+     <li><span class="dfn-paneled" id="e97a9688">unsigned long</span>
+     <li><span class="dfn-paneled" id="f4386d3f">value pair</span>
+     <li><span class="dfn-paneled" id="42a03705">value pairs to iterate over</span>
+    </ul>
+   <li>
+    <a data-link-type="biblio">[WEBXR]</a> defines the following terms:
+    <ul>
+     <li><span class="dfn-paneled" id="79693d31">"immersive-vr"</span>
+     <li><span class="dfn-paneled" id="f8e8ab73">"inline"</span>
+     <li><span class="dfn-paneled" id="7a030114">XRFrame</span>
+     <li><span class="dfn-paneled" id="b23556e5">XRSession</span>
+     <li><span class="dfn-paneled" id="0b566548">XRSpace</span>
+     <li><span class="dfn-paneled" id="680b44a3">explicit consent</span>
+     <li><span class="dfn-paneled" id="348f253b">feature descriptor</span>
+     <li><span class="dfn-paneled" id="a03d6806">native origin</span>
+     <li><span class="dfn-paneled" id="3f9ada5b">XR device</span>
+     <li><span class="dfn-paneled" id="4da8c16e">XR device <small>(for XRSession)</small></span>
+    </ul>
+   <li>
+    <a data-link-type="biblio">[WEBXR-AR-MODULE-1]</a> defines the following terms:
+    <ul>
+     <li><span class="dfn-paneled" id="ac906c0c">"immersive-ar"</span>
+    </ul>
+  </ul>
+  <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
+  <h3 class="no-num no-ref heading settled" id="normative"><span class="content">Normative References</span><a class="self-link" href="#normative"></a></h3>
+  <dl>
+   <dt id="biblio-infra">[INFRA]
+   <dd>Anne van Kesteren; Domenic Denicola. <a href="https://infra.spec.whatwg.org/"><cite>Infra Standard</cite></a>. Living Standard. URL: <a href="https://infra.spec.whatwg.org/">https://infra.spec.whatwg.org/</a>
+   <dt id="biblio-rfc2119">[RFC2119]
+   <dd>S. Bradner. <a href="https://datatracker.ietf.org/doc/html/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a href="https://datatracker.ietf.org/doc/html/rfc2119">https://datatracker.ietf.org/doc/html/rfc2119</a>
+   <dt id="biblio-webidl">[WEBIDL]
+   <dd>Edgar Chen; Timothy Gu. <a href="https://webidl.spec.whatwg.org/"><cite>Web IDL Standard</cite></a>. Living Standard. URL: <a href="https://webidl.spec.whatwg.org/">https://webidl.spec.whatwg.org/</a>
+   <dt id="biblio-webxr">[WEBXR]
+   <dd>Brandon Jones; Manish Goregaokar; Rik Cabanier. <a href="https://immersive-web.github.io/webxr/"><cite>WebXR Device API</cite></a>. URL: <a href="https://immersive-web.github.io/webxr/">https://immersive-web.github.io/webxr/</a>
+   <dt id="biblio-webxr-ar-module-1">[WEBXR-AR-MODULE-1]
+   <dd>Brandon Jones; Manish Goregaokar; Rik Cabanier. <a href="https://immersive-web.github.io/webxr-ar-module/"><cite>WebXR Augmented Reality Module - Level 1</cite></a>. URL: <a href="https://immersive-web.github.io/webxr-ar-module/">https://immersive-web.github.io/webxr-ar-module/</a>
+  </dl>
+  <h3 class="no-num no-ref heading settled" id="informative"><span class="content">Informative References</span><a class="self-link" href="#informative"></a></h3>
+  <dl>
+   <dt id="biblio-html">[HTML]
+   <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/"><cite>HTML Standard</cite></a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
+  </dl>
+  <h2 class="no-num no-ref heading settled" id="idl-index"><span class="content">IDL Index</span><a class="self-link" href="#idl-index"></a></h2>
+<pre class="idl highlight def"><c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://immersive-web.github.io/webxr/#xrframe"><c- g>XRFrame</c-></a> {
+   [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SameObject"><c- g>SameObject</c-></a>] <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="#xrbody"><c- n>XRBody</c-></a>? <a class="idl-code" data-link-type="attribute" data-readonly data-type="XRBody?" href="#dom-xrframe-body"><c- g>body</c-></a>;
+};
+
+<c- b>enum</c-> <a href="#enumdef-xrbodyjoint"><code><c- g>XRBodyJoint</c-></code></a> {
+  <a href="#dom-xrbodyjoint-hips"><code><c- s>"hips"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-spine-lower"><code><c- s>"spine-lower"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-spine-middle"><code><c- s>"spine-middle"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-spine-upper"><code><c- s>"spine-upper"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-chest"><code><c- s>"chest"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-neck"><code><c- s>"neck"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-head"><code><c- s>"head"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-left-shoulder"><code><c- s>"left-shoulder"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-left-scapula"><code><c- s>"left-scapula"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-left-arm-upper"><code><c- s>"left-arm-upper"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-left-arm-lower"><code><c- s>"left-arm-lower"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-left-hand-wrist-twist"><code><c- s>"left-hand-wrist-twist"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-right-shoulder"><code><c- s>"right-shoulder"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-right-scapula"><code><c- s>"right-scapula"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-right-arm-upper"><code><c- s>"right-arm-upper"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-right-arm-lower"><code><c- s>"right-arm-lower"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-right-hand-wrist-twist"><code><c- s>"right-hand-wrist-twist"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-left-hand-palm"><code><c- s>"left-hand-palm"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-left-hand-wrist"><code><c- s>"left-hand-wrist"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-left-hand-thumb-metacarpal"><code><c- s>"left-hand-thumb-metacarpal"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-left-hand-thumb-phalanx-proximal"><code><c- s>"left-hand-thumb-phalanx-proximal"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-left-hand-thumb-phalanx-distal"><code><c- s>"left-hand-thumb-phalanx-distal"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-left-hand-thumb-tip"><code><c- s>"left-hand-thumb-tip"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-left-hand-index-metacarpal"><code><c- s>"left-hand-index-metacarpal"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-left-hand-index-phalanx-proximal"><code><c- s>"left-hand-index-phalanx-proximal"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-left-hand-index-phalanx-intermediate"><code><c- s>"left-hand-index-phalanx-intermediate"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-left-hand-index-phalanx-distal"><code><c- s>"left-hand-index-phalanx-distal"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-left-hand-index-tip"><code><c- s>"left-hand-index-tip"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-left-hand-middle-phalanx-metacarpal"><code><c- s>"left-hand-middle-phalanx-metacarpal"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-left-hand-middle-phalanx-proximal"><code><c- s>"left-hand-middle-phalanx-proximal"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-left-hand-middle-phalanx-intermediate"><code><c- s>"left-hand-middle-phalanx-intermediate"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-left-hand-middle-phalanx-distal"><code><c- s>"left-hand-middle-phalanx-distal"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-left-hand-middle-tip"><code><c- s>"left-hand-middle-tip"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-left-hand-ring-metacarpal"><code><c- s>"left-hand-ring-metacarpal"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-left-hand-ring-phalanx-proximal"><code><c- s>"left-hand-ring-phalanx-proximal"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-left-hand-ring-phalanx-intermediate"><code><c- s>"left-hand-ring-phalanx-intermediate"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-left-hand-ring-phalanx-distal"><code><c- s>"left-hand-ring-phalanx-distal"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-left-hand-ring-tip"><code><c- s>"left-hand-ring-tip"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-left-hand-little-metacarpal"><code><c- s>"left-hand-little-metacarpal"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-left-hand-little-phalanx-proximal"><code><c- s>"left-hand-little-phalanx-proximal"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-left-hand-little-phalanx-intermediate"><code><c- s>"left-hand-little-phalanx-intermediate"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-left-hand-little-phalanx-distal"><code><c- s>"left-hand-little-phalanx-distal"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-left-hand-little-tip"><code><c- s>"left-hand-little-tip"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-right-hand-palm"><code><c- s>"right-hand-palm"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-right-hand-wrist"><code><c- s>"right-hand-wrist"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-right-hand-thumb-metacarpal"><code><c- s>"right-hand-thumb-metacarpal"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-right-hand-thumb-phalanx-proximal"><code><c- s>"right-hand-thumb-phalanx-proximal"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-right-hand-thumb-phalanx-distal"><code><c- s>"right-hand-thumb-phalanx-distal"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-right-hand-thumb-tip"><code><c- s>"right-hand-thumb-tip"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-right-hand-index-metacarpal"><code><c- s>"right-hand-index-metacarpal"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-right-hand-index-phalanx-proximal"><code><c- s>"right-hand-index-phalanx-proximal"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-right-hand-index-phalanx-intermediate"><code><c- s>"right-hand-index-phalanx-intermediate"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-right-hand-index-phalanx-distal"><code><c- s>"right-hand-index-phalanx-distal"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-right-hand-index-tip"><code><c- s>"right-hand-index-tip"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-right-hand-middle-metacarpal"><code><c- s>"right-hand-middle-metacarpal"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-right-hand-middle-phalanx-proximal"><code><c- s>"right-hand-middle-phalanx-proximal"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-right-hand-middle-phalanx-intermediate"><code><c- s>"right-hand-middle-phalanx-intermediate"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-right-hand-middle-phalanx-distal"><code><c- s>"right-hand-middle-phalanx-distal"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-right-hand-middle-tip"><code><c- s>"right-hand-middle-tip"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-right-hand-ring-metacarpal"><code><c- s>"right-hand-ring-metacarpal"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-right-hand-ring-phalanx-proximal"><code><c- s>"right-hand-ring-phalanx-proximal"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-right-hand-ring-phalanx-intermediate"><code><c- s>"right-hand-ring-phalanx-intermediate"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-right-hand-ring-phalanx-distal"><code><c- s>"right-hand-ring-phalanx-distal"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-right-hand-ring-tip"><code><c- s>"right-hand-ring-tip"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-right-hand-little-metacarpal"><code><c- s>"right-hand-little-metacarpal"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-right-hand-little-phalanx-proximal"><code><c- s>"right-hand-little-phalanx-proximal"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-right-hand-little-phalanx-intermediate"><code><c- s>"right-hand-little-phalanx-intermediate"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-right-hand-little-phalanx-distal"><code><c- s>"right-hand-little-phalanx-distal"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-right-hand-little-tip"><code><c- s>"right-hand-little-tip"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-left-upper-leg"><code><c- s>"left-upper-leg"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-left-lower-leg"><code><c- s>"left-lower-leg"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-left-foot-ankle-twist"><code><c- s>"left-foot-ankle-twist"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-left-foot-ankle"><code><c- s>"left-foot-ankle"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-left-foot-subtalar"><code><c- s>"left-foot-subtalar"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-left-foot-transverse"><code><c- s>"left-foot-transverse"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-left-foot-ball"><code><c- s>"left-foot-ball"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-right-upper-leg"><code><c- s>"right-upper-leg"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-right-lower-leg"><code><c- s>"right-lower-leg"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-right-foot-ankle-twist"><code><c- s>"right-foot-ankle-twist"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-right-foot-ankle"><code><c- s>"right-foot-ankle"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-right-foot-subtalar"><code><c- s>"right-foot-subtalar"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-right-foot-transverse"><code><c- s>"right-foot-transverse"</c-></code></a>,
+  <a href="#dom-xrbodyjoint-right-foot-ball"><code><c- s>"right-foot-ball"</c-></code></a>
+};
+
+[<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed"><c- g>Exposed</c-></a>=<c- n>Window</c->]
+<c- b>interface</c-> <a href="#xrbody"><code><c- g>XRBody</c-></code></a> {
+    <c- b>iterable</c->&lt;<a data-link-type="idl-name" href="#enumdef-xrbodyjoint"><c- n>XRBodyJoint</c-></a>, <a data-link-type="idl-name" href="#xrbodyspace"><c- n>XRBodySpace</c-></a>>;
+
+    <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="unsigned long" href="#dom-xrbody-size"><c- g>size</c-></a>;
+    <a data-link-type="idl-name" href="#xrbodyspace"><c- n>XRBodySpace</c-></a> <a href="#dom-xrbody-get"><code><c- g>get</c-></code></a>(<a data-link-type="idl-name" href="#enumdef-xrbodyjoint"><c- n>XRBodyJoint</c-></a> <a href="#dom-xrbody-get-key-key"><code><c- g>key</c-></code></a>);
+};
+
+[<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed"><c- g>Exposed</c-></a>=<c- n>Window</c->]
+<c- b>interface</c-> <a href="#xrbodyspace"><code><c- g>XRBodySpace</c-></code></a>: <a data-link-type="idl-name" href="https://immersive-web.github.io/webxr/#xrspace"><c- n>XRSpace</c-></a> {
+  <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="#enumdef-xrbodyjoint"><c- n>XRBodyJoint</c-></a> <a data-readonly data-type="XRBodyJoint" href="#dom-xrbodyspace-jointname"><code><c- g>jointName</c-></code></a>;
+};
+
+</pre>
+<script>/* Boilerplate: script-dom-helper */
+"use strict";
+function query(sel) { return document.querySelector(sel); }
+
+function queryAll(sel) { return [...document.querySelectorAll(sel)]; }
+
+function iter(obj) {
+	if(!obj) return [];
+	var it = obj[Symbol.iterator];
+	if(it) return it;
+	return Object.entries(obj);
+}
+
+function mk(tagname, attrs, ...children) {
+	const el = document.createElement(tagname);
+	for(const [k,v] of iter(attrs)) {
+		if(k.slice(0,3) == "_on") {
+			const eventName = k.slice(3);
+			el.addEventListener(eventName, v);
+		} else if(k[0] == "_") {
+			// property, not attribute
+			el[k.slice(1)] = v;
+		} else {
+			if(v === false || v == null) {
+        continue;
+      } else if(v === true) {
+        el.setAttribute(k, "");
+        continue;
+      } else {
+  			el.setAttribute(k, v);
+      }
+		}
+	}
+	append(el, children);
+	return el;
+}
+
+/* Create shortcuts for every known HTML element */
+[
+  "a",
+  "abbr",
+  "acronym",
+  "address",
+  "applet",
+  "area",
+  "article",
+  "aside",
+  "audio",
+  "b",
+  "base",
+  "basefont",
+  "bdo",
+  "big",
+  "blockquote",
+  "body",
+  "br",
+  "button",
+  "canvas",
+  "caption",
+  "center",
+  "cite",
+  "code",
+  "col",
+  "colgroup",
+  "datalist",
+  "dd",
+  "del",
+  "details",
+  "dfn",
+  "dialog",
+  "div",
+  "dl",
+  "dt",
+  "em",
+  "embed",
+  "fieldset",
+  "figcaption",
+  "figure",
+  "font",
+  "footer",
+  "form",
+  "frame",
+  "frameset",
+  "head",
+  "header",
+  "h1",
+  "h2",
+  "h3",
+  "h4",
+  "h5",
+  "h6",
+  "hr",
+  "html",
+  "i",
+  "iframe",
+  "img",
+  "input",
+  "ins",
+  "kbd",
+  "label",
+  "legend",
+  "li",
+  "link",
+  "main",
+  "map",
+  "mark",
+  "meta",
+  "meter",
+  "nav",
+  "nobr",
+  "noscript",
+  "object",
+  "ol",
+  "optgroup",
+  "option",
+  "output",
+  "p",
+  "param",
+  "pre",
+  "progress",
+  "q",
+  "s",
+  "samp",
+  "script",
+  "section",
+  "select",
+  "small",
+  "source",
+  "span",
+  "strike",
+  "strong",
+  "style",
+  "sub",
+  "summary",
+  "sup",
+  "table",
+  "tbody",
+  "td",
+  "template",
+  "textarea",
+  "tfoot",
+  "th",
+  "thead",
+  "time",
+  "title",
+  "tr",
+  "u",
+  "ul",
+  "var",
+  "video",
+  "wbr",
+  "xmp",
+].forEach(tagname=>{
+	mk[tagname] = (...args) => mk(tagname, ...args);
+});
+
+function* nodesFromChildList(children) {
+	for(const child of children.flat(Infinity)) {
+		if(child instanceof Node) {
+			yield child;
+		} else {
+			yield new Text(child);
+		}
+	}
+}
+function append(el, ...children) {
+	for(const child of nodesFromChildList(children)) {
+		if(el instanceof Node) el.appendChild(child);
+		else el.push(child);
+	}
+	return el;
+}
+
+function insertAfter(el, ...children) {
+	for(const child of nodesFromChildList(children)) {
+		el.parentNode.insertBefore(child, el.nextSibling);
+	}
+	return el;
+}
+
+function clearContents(el) {
+	el.innerHTML = "";
+	return el;
+}
+
+function parseHTML(markup) {
+	if(markup.toLowerCase().trim().indexOf('<!doctype') === 0) {
+		const doc = document.implementation.createHTMLDocument("");
+		doc.documentElement.innerHTML = markup;
+		return doc;
+	} else {
+		const el = mk.template({});
+		el.innerHTML = markup;
+		return el.content;
+	}
+}</script>
+<script>/* Boilerplate: script-dfn-panel */
+"use strict";
+{
+let dfnPanelData = {
+"0b566548": {"dfnID":"0b566548","dfnText":"XRSpace","external":true,"refSections":[{"refs":[{"id":"ref-for-xrspace"}],"title":"2.4. XRBodySpace"}],"url":"https://immersive-web.github.io/webxr/#xrspace"},
+"348f253b": {"dfnID":"348f253b","dfnText":"feature descriptor","external":true,"refSections":[{"refs":[{"id":"ref-for-feature-descriptor"},{"id":"ref-for-feature-descriptor\u2460"},{"id":"ref-for-feature-descriptor\u2461"}],"title":"2. Initialization"},{"refs":[{"id":"ref-for-feature-descriptor\u2462"}],"title":"2.1. XRFrame"}],"url":"https://immersive-web.github.io/webxr/#feature-descriptor"},
+"3f9ada5b": {"dfnID":"3f9ada5b","dfnText":"XR device","external":true,"refSections":[{"refs":[{"id":"ref-for-xr-device"}],"title":"1. Introduction"}],"url":"https://immersive-web.github.io/webxr/#xr-device"},
+"4013a022": {"dfnID":"4013a022","dfnText":"this","external":true,"refSections":[{"refs":[{"id":"ref-for-this"}],"title":"2.1. XRFrame"},{"refs":[{"id":"ref-for-this\u2460"},{"id":"ref-for-this\u2461"}],"title":"2.3. XRBody"}],"url":"https://webidl.spec.whatwg.org/#this"},
+"42a03705": {"dfnID":"42a03705","dfnText":"value pairs to iterate over","external":true,"refSections":[{"refs":[{"id":"ref-for-dfn-value-pairs-to-iterate-over"}],"title":"2.3. XRBody"}],"url":"https://webidl.spec.whatwg.org/#dfn-value-pairs-to-iterate-over"},
+"4da8c16e": {"dfnID":"4da8c16e","dfnText":"XR device (for XRSession)","external":true,"refSections":[{"refs":[{"id":"ref-for-xrsession-xr-device"}],"title":"2. Initialization"},{"refs":[{"id":"ref-for-xrsession-xr-device\u2460"}],"title":"2.1. XRFrame"}],"url":"https://immersive-web.github.io/webxr/#xrsession-xr-device"},
+"680b44a3": {"dfnID":"680b44a3","dfnText":"explicit consent","external":true,"refSections":[{"refs":[{"id":"ref-for-explicit-consent"}],"title":"3. Privacy & Security Considerations"}],"url":"https://immersive-web.github.io/webxr/#explicit-consent"},
+"79693d31": {"dfnID":"79693d31","dfnText":"\"immersive-vr\"","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-xrsessionmode-immersive-vr"}],"title":"3. Privacy & Security Considerations"}],"url":"https://immersive-web.github.io/webxr/#dom-xrsessionmode-immersive-vr"},
+"7a030114": {"dfnID":"7a030114","dfnText":"XRFrame","external":true,"refSections":[{"refs":[{"id":"ref-for-xrframe"},{"id":"ref-for-xrframe\u2460"}],"title":"2.1. XRFrame"}],"url":"https://immersive-web.github.io/webxr/#xrframe"},
+"84b454ff": {"dfnID":"84b454ff","dfnText":"ordered map","external":true,"refSections":[{"refs":[{"id":"ref-for-ordered-map"}],"title":"2.3. XRBody"}],"url":"https://infra.spec.whatwg.org/#ordered-map"},
+"889e932f": {"dfnID":"889e932f","dfnText":"Exposed","external":true,"refSections":[{"refs":[{"id":"ref-for-Exposed"}],"title":"2.3. XRBody"},{"refs":[{"id":"ref-for-Exposed\u2460"}],"title":"2.4. XRBodySpace"}],"url":"https://webidl.spec.whatwg.org/#Exposed"},
+"a03d6806": {"dfnID":"a03d6806","dfnText":"native origin","external":true,"refSections":[{"refs":[{"id":"ref-for-xrspace-native-origin"},{"id":"ref-for-xrspace-native-origin\u2460"},{"id":"ref-for-xrspace-native-origin\u2461"},{"id":"ref-for-xrspace-native-origin\u2462"}],"title":"2.4. XRBodySpace"}],"url":"https://immersive-web.github.io/webxr/#xrspace-native-origin"},
+"a5c91173": {"dfnID":"a5c91173","dfnText":"SameObject","external":true,"refSections":[{"refs":[{"id":"ref-for-SameObject"}],"title":"2.1. XRFrame"}],"url":"https://webidl.spec.whatwg.org/#SameObject"},
+"ac906c0c": {"dfnID":"ac906c0c","dfnText":"\"immersive-ar\"","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-xrsessionmode-immersive-ar"}],"title":"3. Privacy & Security Considerations"}],"url":"https://immersive-web.github.io/webxr-ar-module/#dom-xrsessionmode-immersive-ar"},
+"associated-bone": {"dfnID":"associated-bone","dfnText":"associated bone","external":false,"refSections":[{"refs":[{"id":"ref-for-associated-bone"},{"id":"ref-for-associated-bone\u2460"}],"title":"2.2. Body Joints"},{"refs":[{"id":"ref-for-associated-bone\u2461"}],"title":"2.4. XRBodySpace"}],"url":"#associated-bone"},
+"b23556e5": {"dfnID":"b23556e5","dfnText":"XRSession","external":true,"refSections":[{"refs":[{"id":"ref-for-xrsession"}],"title":"2. Initialization"},{"refs":[{"id":"ref-for-xrsession\u2460"}],"title":"2.1. XRFrame"}],"url":"https://immersive-web.github.io/webxr/#xrsession"},
+"body-joints": {"dfnID":"body-joints","dfnText":"body joints","external":false,"refSections":[{"refs":[{"id":"ref-for-body-joints"}],"title":"1. Introduction"},{"refs":[{"id":"ref-for-body-joints\u2460"},{"id":"ref-for-body-joints\u2461"},{"id":"ref-for-body-joints\u2462"}],"title":"2.2. Body Joints"},{"refs":[{"id":"ref-for-body-joints\u2463"},{"id":"ref-for-body-joints\u2464"}],"title":"2.3. XRBody"},{"refs":[{"id":"ref-for-body-joints\u2465"},{"id":"ref-for-body-joints\u2466"},{"id":"ref-for-body-joints\u2467"},{"id":"ref-for-body-joints\u2468"}],"title":"2.4. XRBodySpace"}],"url":"#body-joints"},
+"dom-xrbody-get": {"dfnID":"dom-xrbody-get","dfnText":"get","external":false,"refSections":[],"url":"#dom-xrbody-get"},
+"dom-xrbody-get-jointname": {"dfnID":"dom-xrbody-get-jointname","dfnText":"get(jointName)","external":false,"refSections":[],"url":"#dom-xrbody-get-jointname"},
+"dom-xrbody-get-key-key": {"dfnID":"dom-xrbody-get-key-key","dfnText":"key","external":false,"refSections":[],"url":"#dom-xrbody-get-key-key"},
+"dom-xrbody-joints-slot": {"dfnID":"dom-xrbody-joints-slot","dfnText":"[[joints]]","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-xrbody-joints-slot"},{"id":"ref-for-dom-xrbody-joints-slot\u2460"},{"id":"ref-for-dom-xrbody-joints-slot\u2461"}],"title":"2.3. XRBody"}],"url":"#dom-xrbody-joints-slot"},
+"dom-xrbody-size": {"dfnID":"dom-xrbody-size","dfnText":"size","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-xrbody-size"}],"title":"2.3. XRBody"}],"url":"#dom-xrbody-size"},
+"dom-xrbodyjoint-chest": {"dfnID":"dom-xrbodyjoint-chest","dfnText":"\"chest\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-chest"},
+"dom-xrbodyjoint-head": {"dfnID":"dom-xrbodyjoint-head","dfnText":"\"head\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-head"},
+"dom-xrbodyjoint-hips": {"dfnID":"dom-xrbodyjoint-hips","dfnText":"\"hips\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-hips"},
+"dom-xrbodyjoint-left-arm-lower": {"dfnID":"dom-xrbodyjoint-left-arm-lower","dfnText":"\"left-arm-lower\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-left-arm-lower"},
+"dom-xrbodyjoint-left-arm-upper": {"dfnID":"dom-xrbodyjoint-left-arm-upper","dfnText":"\"left-arm-upper\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-left-arm-upper"},
+"dom-xrbodyjoint-left-foot-ankle": {"dfnID":"dom-xrbodyjoint-left-foot-ankle","dfnText":"\"left-foot-ankle\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-left-foot-ankle"},
+"dom-xrbodyjoint-left-foot-ankle-twist": {"dfnID":"dom-xrbodyjoint-left-foot-ankle-twist","dfnText":"\"left-foot-ankle-twist\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-left-foot-ankle-twist"},
+"dom-xrbodyjoint-left-foot-ball": {"dfnID":"dom-xrbodyjoint-left-foot-ball","dfnText":"\"left-foot-ball\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-left-foot-ball"},
+"dom-xrbodyjoint-left-foot-subtalar": {"dfnID":"dom-xrbodyjoint-left-foot-subtalar","dfnText":"\"left-foot-subtalar\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-left-foot-subtalar"},
+"dom-xrbodyjoint-left-foot-transverse": {"dfnID":"dom-xrbodyjoint-left-foot-transverse","dfnText":"\"left-foot-transverse\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-left-foot-transverse"},
+"dom-xrbodyjoint-left-hand-index-metacarpal": {"dfnID":"dom-xrbodyjoint-left-hand-index-metacarpal","dfnText":"\"left-hand-index-metacarpal\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-left-hand-index-metacarpal"},
+"dom-xrbodyjoint-left-hand-index-phalanx-distal": {"dfnID":"dom-xrbodyjoint-left-hand-index-phalanx-distal","dfnText":"\"left-hand-index-phalanx-distal\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-left-hand-index-phalanx-distal"},
+"dom-xrbodyjoint-left-hand-index-phalanx-intermediate": {"dfnID":"dom-xrbodyjoint-left-hand-index-phalanx-intermediate","dfnText":"\"left-hand-index-phalanx-intermediate\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-left-hand-index-phalanx-intermediate"},
+"dom-xrbodyjoint-left-hand-index-phalanx-proximal": {"dfnID":"dom-xrbodyjoint-left-hand-index-phalanx-proximal","dfnText":"\"left-hand-index-phalanx-proximal\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-left-hand-index-phalanx-proximal"},
+"dom-xrbodyjoint-left-hand-index-tip": {"dfnID":"dom-xrbodyjoint-left-hand-index-tip","dfnText":"\"left-hand-index-tip\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-left-hand-index-tip"},
+"dom-xrbodyjoint-left-hand-little-metacarpal": {"dfnID":"dom-xrbodyjoint-left-hand-little-metacarpal","dfnText":"\"left-hand-little-metacarpal\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-left-hand-little-metacarpal"},
+"dom-xrbodyjoint-left-hand-little-phalanx-distal": {"dfnID":"dom-xrbodyjoint-left-hand-little-phalanx-distal","dfnText":"\"left-hand-little-phalanx-distal\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-left-hand-little-phalanx-distal"},
+"dom-xrbodyjoint-left-hand-little-phalanx-intermediate": {"dfnID":"dom-xrbodyjoint-left-hand-little-phalanx-intermediate","dfnText":"\"left-hand-little-phalanx-intermediate\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-left-hand-little-phalanx-intermediate"},
+"dom-xrbodyjoint-left-hand-little-phalanx-proximal": {"dfnID":"dom-xrbodyjoint-left-hand-little-phalanx-proximal","dfnText":"\"left-hand-little-phalanx-proximal\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-left-hand-little-phalanx-proximal"},
+"dom-xrbodyjoint-left-hand-little-tip": {"dfnID":"dom-xrbodyjoint-left-hand-little-tip","dfnText":"\"left-hand-little-tip\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-left-hand-little-tip"},
+"dom-xrbodyjoint-left-hand-middle-phalanx-distal": {"dfnID":"dom-xrbodyjoint-left-hand-middle-phalanx-distal","dfnText":"\"left-hand-middle-phalanx-distal\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-left-hand-middle-phalanx-distal"},
+"dom-xrbodyjoint-left-hand-middle-phalanx-intermediate": {"dfnID":"dom-xrbodyjoint-left-hand-middle-phalanx-intermediate","dfnText":"\"left-hand-middle-phalanx-intermediate\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-left-hand-middle-phalanx-intermediate"},
+"dom-xrbodyjoint-left-hand-middle-phalanx-metacarpal": {"dfnID":"dom-xrbodyjoint-left-hand-middle-phalanx-metacarpal","dfnText":"\"left-hand-middle-phalanx-metacarpal\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-left-hand-middle-phalanx-metacarpal"},
+"dom-xrbodyjoint-left-hand-middle-phalanx-proximal": {"dfnID":"dom-xrbodyjoint-left-hand-middle-phalanx-proximal","dfnText":"\"left-hand-middle-phalanx-proximal\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-left-hand-middle-phalanx-proximal"},
+"dom-xrbodyjoint-left-hand-middle-tip": {"dfnID":"dom-xrbodyjoint-left-hand-middle-tip","dfnText":"\"left-hand-middle-tip\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-left-hand-middle-tip"},
+"dom-xrbodyjoint-left-hand-palm": {"dfnID":"dom-xrbodyjoint-left-hand-palm","dfnText":"\"left-hand-palm\"","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-xrbodyjoint-left-hand-palm"}],"title":"2.4. XRBodySpace"}],"url":"#dom-xrbodyjoint-left-hand-palm"},
+"dom-xrbodyjoint-left-hand-ring-metacarpal": {"dfnID":"dom-xrbodyjoint-left-hand-ring-metacarpal","dfnText":"\"left-hand-ring-metacarpal\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-left-hand-ring-metacarpal"},
+"dom-xrbodyjoint-left-hand-ring-phalanx-distal": {"dfnID":"dom-xrbodyjoint-left-hand-ring-phalanx-distal","dfnText":"\"left-hand-ring-phalanx-distal\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-left-hand-ring-phalanx-distal"},
+"dom-xrbodyjoint-left-hand-ring-phalanx-intermediate": {"dfnID":"dom-xrbodyjoint-left-hand-ring-phalanx-intermediate","dfnText":"\"left-hand-ring-phalanx-intermediate\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-left-hand-ring-phalanx-intermediate"},
+"dom-xrbodyjoint-left-hand-ring-phalanx-proximal": {"dfnID":"dom-xrbodyjoint-left-hand-ring-phalanx-proximal","dfnText":"\"left-hand-ring-phalanx-proximal\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-left-hand-ring-phalanx-proximal"},
+"dom-xrbodyjoint-left-hand-ring-tip": {"dfnID":"dom-xrbodyjoint-left-hand-ring-tip","dfnText":"\"left-hand-ring-tip\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-left-hand-ring-tip"},
+"dom-xrbodyjoint-left-hand-thumb-metacarpal": {"dfnID":"dom-xrbodyjoint-left-hand-thumb-metacarpal","dfnText":"\"left-hand-thumb-metacarpal\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-left-hand-thumb-metacarpal"},
+"dom-xrbodyjoint-left-hand-thumb-phalanx-distal": {"dfnID":"dom-xrbodyjoint-left-hand-thumb-phalanx-distal","dfnText":"\"left-hand-thumb-phalanx-distal\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-left-hand-thumb-phalanx-distal"},
+"dom-xrbodyjoint-left-hand-thumb-phalanx-proximal": {"dfnID":"dom-xrbodyjoint-left-hand-thumb-phalanx-proximal","dfnText":"\"left-hand-thumb-phalanx-proximal\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-left-hand-thumb-phalanx-proximal"},
+"dom-xrbodyjoint-left-hand-thumb-tip": {"dfnID":"dom-xrbodyjoint-left-hand-thumb-tip","dfnText":"\"left-hand-thumb-tip\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-left-hand-thumb-tip"},
+"dom-xrbodyjoint-left-hand-wrist": {"dfnID":"dom-xrbodyjoint-left-hand-wrist","dfnText":"\"left-hand-wrist\"","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-xrbodyjoint-left-hand-wrist"}],"title":"2.4. XRBodySpace"}],"url":"#dom-xrbodyjoint-left-hand-wrist"},
+"dom-xrbodyjoint-left-hand-wrist-twist": {"dfnID":"dom-xrbodyjoint-left-hand-wrist-twist","dfnText":"\"left-hand-wrist-twist\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-left-hand-wrist-twist"},
+"dom-xrbodyjoint-left-lower-leg": {"dfnID":"dom-xrbodyjoint-left-lower-leg","dfnText":"\"left-lower-leg\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-left-lower-leg"},
+"dom-xrbodyjoint-left-scapula": {"dfnID":"dom-xrbodyjoint-left-scapula","dfnText":"\"left-scapula\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-left-scapula"},
+"dom-xrbodyjoint-left-shoulder": {"dfnID":"dom-xrbodyjoint-left-shoulder","dfnText":"\"left-shoulder\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-left-shoulder"},
+"dom-xrbodyjoint-left-upper-leg": {"dfnID":"dom-xrbodyjoint-left-upper-leg","dfnText":"\"left-upper-leg\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-left-upper-leg"},
+"dom-xrbodyjoint-neck": {"dfnID":"dom-xrbodyjoint-neck","dfnText":"\"neck\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-neck"},
+"dom-xrbodyjoint-right-arm-lower": {"dfnID":"dom-xrbodyjoint-right-arm-lower","dfnText":"\"right-arm-lower\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-right-arm-lower"},
+"dom-xrbodyjoint-right-arm-upper": {"dfnID":"dom-xrbodyjoint-right-arm-upper","dfnText":"\"right-arm-upper\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-right-arm-upper"},
+"dom-xrbodyjoint-right-foot-ankle": {"dfnID":"dom-xrbodyjoint-right-foot-ankle","dfnText":"\"right-foot-ankle\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-right-foot-ankle"},
+"dom-xrbodyjoint-right-foot-ankle-twist": {"dfnID":"dom-xrbodyjoint-right-foot-ankle-twist","dfnText":"\"right-foot-ankle-twist\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-right-foot-ankle-twist"},
+"dom-xrbodyjoint-right-foot-ball": {"dfnID":"dom-xrbodyjoint-right-foot-ball","dfnText":"\"right-foot-ball\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-right-foot-ball"},
+"dom-xrbodyjoint-right-foot-subtalar": {"dfnID":"dom-xrbodyjoint-right-foot-subtalar","dfnText":"\"right-foot-subtalar\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-right-foot-subtalar"},
+"dom-xrbodyjoint-right-foot-transverse": {"dfnID":"dom-xrbodyjoint-right-foot-transverse","dfnText":"\"right-foot-transverse\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-right-foot-transverse"},
+"dom-xrbodyjoint-right-hand-index-metacarpal": {"dfnID":"dom-xrbodyjoint-right-hand-index-metacarpal","dfnText":"\"right-hand-index-metacarpal\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-right-hand-index-metacarpal"},
+"dom-xrbodyjoint-right-hand-index-phalanx-distal": {"dfnID":"dom-xrbodyjoint-right-hand-index-phalanx-distal","dfnText":"\"right-hand-index-phalanx-distal\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-right-hand-index-phalanx-distal"},
+"dom-xrbodyjoint-right-hand-index-phalanx-intermediate": {"dfnID":"dom-xrbodyjoint-right-hand-index-phalanx-intermediate","dfnText":"\"right-hand-index-phalanx-intermediate\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-right-hand-index-phalanx-intermediate"},
+"dom-xrbodyjoint-right-hand-index-phalanx-proximal": {"dfnID":"dom-xrbodyjoint-right-hand-index-phalanx-proximal","dfnText":"\"right-hand-index-phalanx-proximal\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-right-hand-index-phalanx-proximal"},
+"dom-xrbodyjoint-right-hand-index-tip": {"dfnID":"dom-xrbodyjoint-right-hand-index-tip","dfnText":"\"right-hand-index-tip\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-right-hand-index-tip"},
+"dom-xrbodyjoint-right-hand-little-metacarpal": {"dfnID":"dom-xrbodyjoint-right-hand-little-metacarpal","dfnText":"\"right-hand-little-metacarpal\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-right-hand-little-metacarpal"},
+"dom-xrbodyjoint-right-hand-little-phalanx-distal": {"dfnID":"dom-xrbodyjoint-right-hand-little-phalanx-distal","dfnText":"\"right-hand-little-phalanx-distal\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-right-hand-little-phalanx-distal"},
+"dom-xrbodyjoint-right-hand-little-phalanx-intermediate": {"dfnID":"dom-xrbodyjoint-right-hand-little-phalanx-intermediate","dfnText":"\"right-hand-little-phalanx-intermediate\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-right-hand-little-phalanx-intermediate"},
+"dom-xrbodyjoint-right-hand-little-phalanx-proximal": {"dfnID":"dom-xrbodyjoint-right-hand-little-phalanx-proximal","dfnText":"\"right-hand-little-phalanx-proximal\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-right-hand-little-phalanx-proximal"},
+"dom-xrbodyjoint-right-hand-little-tip": {"dfnID":"dom-xrbodyjoint-right-hand-little-tip","dfnText":"\"right-hand-little-tip\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-right-hand-little-tip"},
+"dom-xrbodyjoint-right-hand-middle-metacarpal": {"dfnID":"dom-xrbodyjoint-right-hand-middle-metacarpal","dfnText":"\"right-hand-middle-metacarpal\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-right-hand-middle-metacarpal"},
+"dom-xrbodyjoint-right-hand-middle-phalanx-distal": {"dfnID":"dom-xrbodyjoint-right-hand-middle-phalanx-distal","dfnText":"\"right-hand-middle-phalanx-distal\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-right-hand-middle-phalanx-distal"},
+"dom-xrbodyjoint-right-hand-middle-phalanx-intermediate": {"dfnID":"dom-xrbodyjoint-right-hand-middle-phalanx-intermediate","dfnText":"\"right-hand-middle-phalanx-intermediate\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-right-hand-middle-phalanx-intermediate"},
+"dom-xrbodyjoint-right-hand-middle-phalanx-proximal": {"dfnID":"dom-xrbodyjoint-right-hand-middle-phalanx-proximal","dfnText":"\"right-hand-middle-phalanx-proximal\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-right-hand-middle-phalanx-proximal"},
+"dom-xrbodyjoint-right-hand-middle-tip": {"dfnID":"dom-xrbodyjoint-right-hand-middle-tip","dfnText":"\"right-hand-middle-tip\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-right-hand-middle-tip"},
+"dom-xrbodyjoint-right-hand-palm": {"dfnID":"dom-xrbodyjoint-right-hand-palm","dfnText":"\"right-hand-palm\"","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-xrbodyjoint-right-hand-palm"}],"title":"2.4. XRBodySpace"}],"url":"#dom-xrbodyjoint-right-hand-palm"},
+"dom-xrbodyjoint-right-hand-ring-metacarpal": {"dfnID":"dom-xrbodyjoint-right-hand-ring-metacarpal","dfnText":"\"right-hand-ring-metacarpal\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-right-hand-ring-metacarpal"},
+"dom-xrbodyjoint-right-hand-ring-phalanx-distal": {"dfnID":"dom-xrbodyjoint-right-hand-ring-phalanx-distal","dfnText":"\"right-hand-ring-phalanx-distal\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-right-hand-ring-phalanx-distal"},
+"dom-xrbodyjoint-right-hand-ring-phalanx-intermediate": {"dfnID":"dom-xrbodyjoint-right-hand-ring-phalanx-intermediate","dfnText":"\"right-hand-ring-phalanx-intermediate\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-right-hand-ring-phalanx-intermediate"},
+"dom-xrbodyjoint-right-hand-ring-phalanx-proximal": {"dfnID":"dom-xrbodyjoint-right-hand-ring-phalanx-proximal","dfnText":"\"right-hand-ring-phalanx-proximal\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-right-hand-ring-phalanx-proximal"},
+"dom-xrbodyjoint-right-hand-ring-tip": {"dfnID":"dom-xrbodyjoint-right-hand-ring-tip","dfnText":"\"right-hand-ring-tip\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-right-hand-ring-tip"},
+"dom-xrbodyjoint-right-hand-thumb-metacarpal": {"dfnID":"dom-xrbodyjoint-right-hand-thumb-metacarpal","dfnText":"\"right-hand-thumb-metacarpal\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-right-hand-thumb-metacarpal"},
+"dom-xrbodyjoint-right-hand-thumb-phalanx-distal": {"dfnID":"dom-xrbodyjoint-right-hand-thumb-phalanx-distal","dfnText":"\"right-hand-thumb-phalanx-distal\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-right-hand-thumb-phalanx-distal"},
+"dom-xrbodyjoint-right-hand-thumb-phalanx-proximal": {"dfnID":"dom-xrbodyjoint-right-hand-thumb-phalanx-proximal","dfnText":"\"right-hand-thumb-phalanx-proximal\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-right-hand-thumb-phalanx-proximal"},
+"dom-xrbodyjoint-right-hand-thumb-tip": {"dfnID":"dom-xrbodyjoint-right-hand-thumb-tip","dfnText":"\"right-hand-thumb-tip\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-right-hand-thumb-tip"},
+"dom-xrbodyjoint-right-hand-wrist": {"dfnID":"dom-xrbodyjoint-right-hand-wrist","dfnText":"\"right-hand-wrist\"","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-xrbodyjoint-right-hand-wrist"}],"title":"2.4. XRBodySpace"}],"url":"#dom-xrbodyjoint-right-hand-wrist"},
+"dom-xrbodyjoint-right-hand-wrist-twist": {"dfnID":"dom-xrbodyjoint-right-hand-wrist-twist","dfnText":"\"right-hand-wrist-twist\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-right-hand-wrist-twist"},
+"dom-xrbodyjoint-right-lower-leg": {"dfnID":"dom-xrbodyjoint-right-lower-leg","dfnText":"\"right-lower-leg\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-right-lower-leg"},
+"dom-xrbodyjoint-right-scapula": {"dfnID":"dom-xrbodyjoint-right-scapula","dfnText":"\"right-scapula\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-right-scapula"},
+"dom-xrbodyjoint-right-shoulder": {"dfnID":"dom-xrbodyjoint-right-shoulder","dfnText":"\"right-shoulder\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-right-shoulder"},
+"dom-xrbodyjoint-right-upper-leg": {"dfnID":"dom-xrbodyjoint-right-upper-leg","dfnText":"\"right-upper-leg\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-right-upper-leg"},
+"dom-xrbodyjoint-spine-lower": {"dfnID":"dom-xrbodyjoint-spine-lower","dfnText":"\"spine-lower\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-spine-lower"},
+"dom-xrbodyjoint-spine-middle": {"dfnID":"dom-xrbodyjoint-spine-middle","dfnText":"\"spine-middle\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-spine-middle"},
+"dom-xrbodyjoint-spine-upper": {"dfnID":"dom-xrbodyjoint-spine-upper","dfnText":"\"spine-upper\"","external":false,"refSections":[],"url":"#dom-xrbodyjoint-spine-upper"},
+"dom-xrbodyspace-jointname": {"dfnID":"dom-xrbodyspace-jointname","dfnText":"jointName","external":false,"refSections":[],"url":"#dom-xrbodyspace-jointname"},
+"dom-xrframe-body": {"dfnID":"dom-xrframe-body","dfnText":"body","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-xrframe-body"},{"id":"ref-for-dom-xrframe-body\u2460"},{"id":"ref-for-dom-xrframe-body\u2461"}],"title":"2.1. XRFrame"},{"refs":[{"id":"ref-for-dom-xrframe-body\u2462"}],"title":"2.2. Body Joints"}],"url":"#dom-xrframe-body"},
+"e97a9688": {"dfnID":"e97a9688","dfnText":"unsigned long","external":true,"refSections":[{"refs":[{"id":"ref-for-idl-unsigned-long"}],"title":"2.3. XRBody"}],"url":"https://webidl.spec.whatwg.org/#idl-unsigned-long"},
+"enumdef-xrbodyjoint": {"dfnID":"enumdef-xrbodyjoint","dfnText":"XRBodyJoint","external":false,"refSections":[{"refs":[{"id":"ref-for-enumdef-xrbodyjoint"}],"title":"2.2. Body Joints"},{"refs":[{"id":"ref-for-enumdef-xrbodyjoint\u2460"},{"id":"ref-for-enumdef-xrbodyjoint\u2461"},{"id":"ref-for-enumdef-xrbodyjoint\u2462"},{"id":"ref-for-enumdef-xrbodyjoint\u2463"},{"id":"ref-for-enumdef-xrbodyjoint\u2464"},{"id":"ref-for-enumdef-xrbodyjoint\u2465"},{"id":"ref-for-enumdef-xrbodyjoint\u2466"},{"id":"ref-for-enumdef-xrbodyjoint\u2467"}],"title":"2.3. XRBody"},{"refs":[{"id":"ref-for-enumdef-xrbodyjoint\u2468"}],"title":"2.4. XRBodySpace"}],"url":"#enumdef-xrbodyjoint"},
+"f4386d3f": {"dfnID":"f4386d3f","dfnText":"value pair","external":true,"refSections":[{"refs":[{"id":"ref-for-value-pair"}],"title":"2.3. XRBody"}],"url":"https://webidl.spec.whatwg.org/#value-pair"},
+"f8e8ab73": {"dfnID":"f8e8ab73","dfnText":"\"inline\"","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-xrsessionmode-inline"}],"title":"3. Privacy & Security Considerations"}],"url":"https://immersive-web.github.io/webxr/#dom-xrsessionmode-inline"},
+"faf954d6": {"dfnID":"faf954d6","dfnText":"browsing context","external":true,"refSections":[{"refs":[{"id":"ref-for-browsing-context"},{"id":"ref-for-browsing-context\u2460"}],"title":"3. Privacy & Security Considerations"}],"url":"https://html.spec.whatwg.org/multipage/browsers.html#browsing-context"},
+"feature-descriptor-body-tracking": {"dfnID":"feature-descriptor-body-tracking","dfnText":"body-tracking","external":false,"refSections":[{"refs":[{"id":"ref-for-feature-descriptor-body-tracking"}],"title":"2. Initialization"},{"refs":[{"id":"ref-for-feature-descriptor-body-tracking\u2460"}],"title":"2.1. XRFrame"}],"url":"#feature-descriptor-body-tracking"},
+"xrbody": {"dfnID":"xrbody","dfnText":"XRBody","external":false,"refSections":[{"refs":[{"id":"ref-for-xrbody"},{"id":"ref-for-xrbody\u2460"}],"title":"2.1. XRFrame"},{"refs":[{"id":"ref-for-xrbody\u2461"},{"id":"ref-for-xrbody\u2462"},{"id":"ref-for-xrbody\u2463"},{"id":"ref-for-xrbody\u2464"}],"title":"2.3. XRBody"},{"refs":[{"id":"ref-for-xrbody\u2465"}],"title":"2.4. XRBodySpace"}],"url":"#xrbody"},
+"xrbodyspace": {"dfnID":"xrbodyspace","dfnText":"XRBodySpace","external":false,"refSections":[{"refs":[{"id":"ref-for-xrbodyspace"},{"id":"ref-for-xrbodyspace\u2460"},{"id":"ref-for-xrbodyspace\u2461"},{"id":"ref-for-xrbodyspace\u2462"}],"title":"2.3. XRBody"},{"refs":[{"id":"ref-for-xrbodyspace\u2463"},{"id":"ref-for-xrbodyspace\u2464"},{"id":"ref-for-xrbodyspace\u2465"},{"id":"ref-for-xrbodyspace\u2466"},{"id":"ref-for-xrbodyspace\u2467"}],"title":"2.4. XRBodySpace"}],"url":"#xrbodyspace"},
+"xrbodyspace-body": {"dfnID":"xrbodyspace-body","dfnText":"body","external":false,"refSections":[{"refs":[{"id":"ref-for-xrbodyspace-body"}],"title":"2.4. XRBodySpace"}],"url":"#xrbodyspace-body"},
+"xrbodyspace-joint": {"dfnID":"xrbodyspace-joint","dfnText":"joint","external":false,"refSections":[{"refs":[{"id":"ref-for-xrbodyspace-joint"}],"title":"2.4. XRBodySpace"}],"url":"#xrbodyspace-joint"},
+"xrbodyspace-jointname": {"dfnID":"xrbodyspace-jointname","dfnText":"jointName","external":false,"refSections":[{"refs":[{"id":"ref-for-xrbodyspace-jointname"}],"title":"2.4. XRBodySpace"}],"url":"#xrbodyspace-jointname"},
+};
+
+document.addEventListener("DOMContentLoaded", ()=>{
+    genAllDfnPanels();
+
+    document.body.addEventListener("click", (e) => {
+        // If not handled already, just hide all dfn panels.
+        hideAllDfnPanels();
+    });
+});
+
+window.addEventListener("resize", () => {
+    // Pin any visible dfn panel
+    queryAll(".dfn-panel.on, .dfn-panel.activated").forEach(el=>positionDfnPanel(el));
+});
+
+function genAllDfnPanels() {
+    for(const panelData of Object.values(dfnPanelData)) {
+        const dfnID = panelData.dfnID;
+        const dfn = document.getElementById(dfnID);
+        if(!dfn) {
+            console.log(`Can't find dfn#${dfnID}.`, panelData);
+            continue;
+        }
+        dfn.panelData = panelData;
+        insertDfnPopupAction(dfn);
+    }
+}
+
+function genDfnPanel(dfn, { dfnID, url, dfnText, refSections, external }) {
+    const dfnPanel = mk.aside({
+        class: "dfn-panel on",
+        id: `infopanel-for-${dfnID}`,
+        "data-for": dfnID,
+        "aria-labelled-by":`infopaneltitle-for-${dfnID}`,
+        },
+        mk.span({id:`infopaneltitle-for-${dfnID}`, style:"display:none"},
+            `Info about the '${dfnText}' ${external?"external":""} reference.`),
+        mk.a({href:url, class:"dfn-link"}, url),
+        refSections.length == 0 ? [] :
+            mk.b({}, "Referenced in:"),
+            mk.ul({},
+                ...refSections.map(section=>
+                    mk.li({},
+                        ...section.refs.map((ref, refI)=>
+                            [
+                                mk.a({ href: `#${ref.id}` },
+                                    (refI == 0) ? section.title : `(${refI + 1})`
+                                ),
+                                " ",
+                            ]
+                        ),
+                    ),
+                ),
+            ),
+        genLinkingSyntaxes(dfn),
+    );
+
+    dfnPanel.addEventListener('click', (event) => {
+        if (event.target.nodeName == 'A') {
+            scrollToTargetAndHighlight(event);
+            pinDfnPanel(dfnPanel);
+        }
+        event.stopPropagation();
+        refocusOnTarget(event);
+    });
+    dfnPanel.addEventListener('keydown', (event) => {
+        if(event.keyCode == 27) { // Escape key
+            hideDfnPanel({dfnPanel});
+            event.stopPropagation();
+            event.preventDefault();
+        }
+    });
+
+    dfnPanel.dfn = dfn;
+    dfn.dfnPanel = dfnPanel;
+    return dfnPanel;
+}
+
+
+
+function hideAllDfnPanels() {
+    // Delete the currently-active dfn panel.
+    queryAll(".dfn-panel").forEach(dfnPanel=>hideDfnPanel({dfnPanel}));
+}
+
+function showDfnPanel(dfn) {
+    hideAllDfnPanels(); // Only display one at a time.
+
+    dfn.setAttribute("aria-expanded", "true");
+
+    const dfnPanel = genDfnPanel(dfn, dfn.panelData);
+
+    // Give the dfn a unique tabindex, and then
+    // give all the tabbable panel bits successive indexes.
+    let tabIndex = 100;
+    dfn.tabIndex = tabIndex++;
+    const tabbable = dfnPanel.querySelectorAll(":is(a, button)");
+    for (const el of tabbable) {
+        el.tabIndex = tabIndex++;
+    }
+
+    append(document.body, dfnPanel);
+    positionDfnPanel(dfnPanel);
+}
+
+function positionDfnPanel(dfnPanel) {
+    const dfn = dfnPanel.dfn;
+    const dfnPos = getBounds(dfn);
+    dfnPanel.style.top = dfnPos.bottom + "px";
+    dfnPanel.style.left = dfnPos.left + "px";
+
+    const panelPos = dfnPanel.getBoundingClientRect();
+    const panelMargin = 8;
+    const maxRight = document.body.parentNode.clientWidth - panelMargin;
+    if (panelPos.right > maxRight) {
+        const overflowAmount = panelPos.right - maxRight;
+        const newLeft = Math.max(panelMargin, dfnPos.left - overflowAmount);
+        dfnPanel.style.left = newLeft + "px";
+    }
+}
+
+function pinDfnPanel(dfnPanel) {
+    // Switch it to "activated" state, which pins it.
+    dfnPanel.classList.add("activated");
+    dfnPanel.style.position = "fixed";
+    dfnPanel.style.left = null;
+    dfnPanel.style.top = null;
+}
+
+function hideDfnPanel({dfn, dfnPanel}) {
+    if(!dfnPanel) dfnPanel = dfn.dfnPanel;
+    if(!dfn) dfn = dfnPanel.dfn;
+    dfn.dfnPanel = undefined;
+    dfnPanel.dfn = undefined;
+    dfn.setAttribute("aria-expanded", "false");
+    dfn.tabIndex = undefined;
+    dfnPanel.remove()
+}
+
+function toggleDfnPanel(dfn) {
+    if(dfn.dfnPanel) {
+        hideDfnPanel(dfn);
+    } else {
+        showDfnPanel(dfn);
+    }
+}
+
+function insertDfnPopupAction(dfn) {
+    dfn.setAttribute('role', 'button');
+    dfn.setAttribute('aria-expanded', 'false')
+    dfn.tabIndex = 0;
+    dfn.classList.add('has-dfn-panel');
+    dfn.addEventListener('click', (event) => {
+        toggleDfnPanel(dfn);
+        event.stopPropagation();
+    });
+    dfn.addEventListener('keypress', (event) => {
+        const kc = event.keyCode;
+        // 32->Space, 13->Enter
+        if(kc == 32 || kc == 13) {
+            toggleDfnPanel(dfn);
+            event.stopPropagation();
+            event.preventDefault();
+        }
+    });
+}
+
+function refocusOnTarget(event) {
+    const target = event.target;
+    setTimeout(() => {
+        // Refocus on the event.target element.
+        // This is needed after browser scrolls to the destination.
+        target.focus();
+    });
+}
+
+// TODO: shared util
+// Returns the root-level absolute position {left and top} of element.
+function getBounds(el, relativeTo=document.body) {
+    const relativeRect = relativeTo.getBoundingClientRect();
+    const elRect = el.getBoundingClientRect();
+    const top = elRect.top - relativeRect.top;
+    const left = elRect.left - relativeRect.left;
+    return {
+        top,
+        left,
+        bottom: top + elRect.height,
+        right: left + elRect.width,
+    }
+}
+
+function scrollToTargetAndHighlight(event) {
+    let hash = event.target.hash;
+    if (hash) {
+        hash = decodeURIComponent(hash.substring(1));
+        const dest = document.getElementById(hash);
+        if (dest) {
+            dest.classList.add('highlighted');
+            setTimeout(() => dest.classList.remove('highlighted'), 1000);
+        }
+    }
+}
+
+// Functions, divided by link type, that wrap an autolink's
+// contents with the appropriate outer syntax.
+// Alternately, a string naming another type they format
+// the same as.
+function needsFor(type) {
+    switch(type) {
+        case "descriptor":
+        case "value":
+        case "element-attr":
+        case "attr-value":
+        case "element-state":
+        case "method":
+        case "constructor":
+        case "argument":
+        case "attribute":
+        case "const":
+        case "dict-member":
+        case "event":
+        case "enum-value":
+        case "stringifier":
+        case "serializer":
+        case "iterator":
+        case "maplike":
+        case "setlike":
+        case "state":
+        case "mode":
+        case "context":
+        case "facet": return true;
+
+        default: return false;
+    }
+}
+function refusesFor(type) {
+    switch(type) {
+        case "property":
+        case "element":
+        case "interface":
+        case "namespace":
+        case "callback":
+        case "dictionary":
+        case "enum":
+        case "exception":
+        case "typedef":
+        case "http-header":
+        case "permission": return true;
+
+        default: return false;
+    }
+}
+function linkFormatterFromType(type) {
+    switch(type) {
+        case 'scheme':
+        case 'permission':
+        case 'dfn': return (text) => `[=${text}=]`;
+
+        case 'abstract-op': return (text) => `[\$${text}\$]`;
+
+        case 'function':
+        case 'at-rule':
+        case 'selector':
+        case 'value': return (text) => `''${text}''`;
+
+        case 'http-header': return (text) => `[:${text}:]`;
+
+        case 'interface':
+        case 'constructor':
+        case 'method':
+        case 'argument':
+        case 'attribute':
+        case 'callback':
+        case 'dictionary':
+        case 'dict-member':
+        case 'enum':
+        case 'enum-value':
+        case 'exception':
+        case 'const':
+        case 'typedef':
+        case 'stringifier':
+        case 'serializer':
+        case 'iterator':
+        case 'maplike':
+        case 'setlike':
+        case 'extended-attribute':
+        case 'event':
+        case 'idl': return (text) => `{{${text}}}`;
+
+        case 'element-state':
+        case 'element-attr':
+        case 'attr-value':
+        case 'element': return (element) => `<{${element}}>`;
+
+        case 'grammar': return (text) => `${text} (within a <pre class=prod>)`;
+
+        case 'type': return (text)=> `<<${text}>>`;
+
+        case 'descriptor':
+        case 'property': return (text) => `'${text}'`;
+
+        default: return;
+    };
+};
+
+function genLinkingSyntaxes(dfn) {
+    if(dfn.tagName != "DFN") return;
+
+    const type = dfn.getAttribute('data-dfn-type');
+    if(!type) {
+        console.log(`<dfn> doesn't have a data-dfn-type:`, dfn);
+        return [];
+    }
+
+    // Return a function that wraps link text based on the type
+    const linkFormatter = linkFormatterFromType(type);
+    if(!linkFormatter) {
+        console.log(`<dfn> has an unknown data-dfn-type:`, dfn);
+        return [];
+    }
+
+    let ltAlts;
+    if(dfn.hasAttribute('data-lt')) {
+        ltAlts = dfn.getAttribute('data-lt')
+            .split("|")
+            .map(x=>x.trim());
+    } else {
+        ltAlts = [dfn.textContent.trim()];
+    }
+    if(type == "type") {
+        // lt of "<foo>", but "foo" is the interior;
+        // <<foo/bar>> is how you write it with a for,
+        // not <foo/<bar>> or whatever.
+        for(var i = 0; i < ltAlts.length; i++) {
+            const lt = ltAlts[i];
+            const match = /<(.*)>/.exec(lt);
+            if(match) { ltAlts[i] = match[1]; }
+        }
+    }
+
+    let forAlts;
+    if(dfn.hasAttribute('data-dfn-for')) {
+        forAlts = dfn.getAttribute('data-dfn-for')
+            .split(",")
+            .map(x=>x.trim());
+    } else {
+        forAlts = [''];
+    }
+
+    let linkingSyntaxes = [];
+    if(!needsFor(type)) {
+        for(const lt of ltAlts) {
+            linkingSyntaxes.push(linkFormatter(lt));
+        }
+    }
+    if(!refusesFor(type)) {
+        for(const f of forAlts) {
+            linkingSyntaxes.push(linkFormatter(`${f}/${ltAlts[0]}`))
+        }
+    }
+    return [
+        mk.b({}, 'Possible linking syntaxes:'),
+        mk.ul({},
+            ...linkingSyntaxes.map(link => {
+                const copyLink = async () =>
+                    await navigator.clipboard.writeText(link);
+                return mk.li({},
+                    mk.div({ class: 'link-item' },
+                        mk.button({
+                            class: 'copy-icon', title: 'Copy',
+                            type: 'button',
+                            _onclick: copyLink,
+                            tabindex: 0,
+                        }, mk.span({ class: 'icon' }) ),
+                        mk.span({}, link)
+                    )
+                );
+            })
+        )
+    ];
+}
+}
+</script>
+<script>/* Boilerplate: script-ref-hints */
+"use strict";
+{
+let refsData = {
+"#associated-bone": {"displayText":"associated bone","export":true,"for_":[],"level":"1","normative":true,"shortname":"webxr-body-tracking","spec":"webxr-body-tracking-1","status":"local","text":"associated bone","type":"dfn","url":"#associated-bone"},
+"#body-joints": {"displayText":"body joints","export":true,"for_":[],"level":"1","normative":true,"shortname":"webxr-body-tracking","spec":"webxr-body-tracking-1","status":"local","text":"body joints","type":"dfn","url":"#body-joints"},
+"#dom-xrbody-joints-slot": {"displayText":"[[joints]]","export":true,"for_":["XRBody"],"level":"1","normative":true,"shortname":"webxr-body-tracking","spec":"webxr-body-tracking-1","status":"local","text":"[[joints]]","type":"attribute","url":"#dom-xrbody-joints-slot"},
+"#dom-xrbody-size": {"displayText":"size","export":true,"for_":["XRBody"],"level":"1","normative":true,"shortname":"webxr-body-tracking","spec":"webxr-body-tracking-1","status":"local","text":"size","type":"attribute","url":"#dom-xrbody-size"},
+"#dom-xrbodyjoint-left-hand-palm": {"displayText":"\"left-hand-palm\"","export":true,"for_":["XRBodyJoint"],"level":"1","normative":true,"shortname":"webxr-body-tracking","spec":"webxr-body-tracking-1","status":"local","text":"\"left-hand-palm\"","type":"enum-value","url":"#dom-xrbodyjoint-left-hand-palm"},
+"#dom-xrbodyjoint-left-hand-wrist": {"displayText":"\"left-hand-wrist\"","export":true,"for_":["XRBodyJoint"],"level":"1","normative":true,"shortname":"webxr-body-tracking","spec":"webxr-body-tracking-1","status":"local","text":"\"left-hand-wrist\"","type":"enum-value","url":"#dom-xrbodyjoint-left-hand-wrist"},
+"#dom-xrbodyjoint-right-hand-palm": {"displayText":"\"right-hand-palm\"","export":true,"for_":["XRBodyJoint"],"level":"1","normative":true,"shortname":"webxr-body-tracking","spec":"webxr-body-tracking-1","status":"local","text":"\"right-hand-palm\"","type":"enum-value","url":"#dom-xrbodyjoint-right-hand-palm"},
+"#dom-xrbodyjoint-right-hand-wrist": {"displayText":"\"right-hand-wrist\"","export":true,"for_":["XRBodyJoint"],"level":"1","normative":true,"shortname":"webxr-body-tracking","spec":"webxr-body-tracking-1","status":"local","text":"\"right-hand-wrist\"","type":"enum-value","url":"#dom-xrbodyjoint-right-hand-wrist"},
+"#dom-xrframe-body": {"displayText":"body","export":true,"for_":["XRFrame"],"level":"1","normative":true,"shortname":"webxr-body-tracking","spec":"webxr-body-tracking-1","status":"local","text":"body","type":"attribute","url":"#dom-xrframe-body"},
+"#enumdef-xrbodyjoint": {"displayText":"XRBodyJoint","export":true,"for_":[],"level":"1","normative":true,"shortname":"webxr-body-tracking","spec":"webxr-body-tracking-1","status":"local","text":"XRBodyJoint","type":"enum","url":"#enumdef-xrbodyjoint"},
+"#feature-descriptor-body-tracking": {"displayText":"body-tracking","export":true,"for_":["feature descriptor"],"level":"1","normative":true,"shortname":"webxr-body-tracking","spec":"webxr-body-tracking-1","status":"local","text":"body-tracking","type":"dfn","url":"#feature-descriptor-body-tracking"},
+"#xrbody": {"displayText":"XRBody","export":true,"for_":[],"level":"1","normative":true,"shortname":"webxr-body-tracking","spec":"webxr-body-tracking-1","status":"local","text":"XRBody","type":"interface","url":"#xrbody"},
+"#xrbodyspace": {"displayText":"XRBodySpace","export":true,"for_":[],"level":"1","normative":true,"shortname":"webxr-body-tracking","spec":"webxr-body-tracking-1","status":"local","text":"XRBodySpace","type":"interface","url":"#xrbodyspace"},
+"#xrbodyspace-body": {"displayText":"body","export":true,"for_":["XRBodySpace"],"level":"1","normative":true,"shortname":"webxr-body-tracking","spec":"webxr-body-tracking-1","status":"local","text":"body","type":"dfn","url":"#xrbodyspace-body"},
+"#xrbodyspace-joint": {"displayText":"joint","export":true,"for_":["XRBodySpace"],"level":"1","normative":true,"shortname":"webxr-body-tracking","spec":"webxr-body-tracking-1","status":"local","text":"joint","type":"dfn","url":"#xrbodyspace-joint"},
+"#xrbodyspace-jointname": {"displayText":"jointname","export":true,"for_":["XRBodySpace"],"level":"1","normative":true,"shortname":"webxr-body-tracking","spec":"webxr-body-tracking-1","status":"local","text":"jointname","type":"dfn","url":"#xrbodyspace-jointname"},
+"https://html.spec.whatwg.org/multipage/browsers.html#browsing-context": {"displayText":"browsing context","export":true,"for_":[],"level":"","normative":true,"shortname":"html","spec":"html","status":"anchor-block","text":"browsing context","type":"dfn","url":"https://html.spec.whatwg.org/multipage/browsers.html#browsing-context"},
+"https://immersive-web.github.io/webxr-ar-module/#dom-xrsessionmode-immersive-ar": {"displayText":"\"immersive-ar\"","export":true,"for_":["XRSessionMode"],"level":"1","normative":true,"shortname":"webxr-ar-module","spec":"webxr-ar-module-1","status":"current","text":"\"immersive-ar\"","type":"enum-value","url":"https://immersive-web.github.io/webxr-ar-module/#dom-xrsessionmode-immersive-ar"},
+"https://immersive-web.github.io/webxr/#dom-xrsessionmode-immersive-vr": {"displayText":"\"immersive-vr\"","export":true,"for_":["XRSessionMode"],"level":"1","normative":true,"shortname":"webxr","spec":"webxr","status":"current","text":"\"immersive-vr\"","type":"enum-value","url":"https://immersive-web.github.io/webxr/#dom-xrsessionmode-immersive-vr"},
+"https://immersive-web.github.io/webxr/#dom-xrsessionmode-inline": {"displayText":"\"inline\"","export":true,"for_":["XRSessionMode"],"level":"1","normative":true,"shortname":"webxr","spec":"webxr","status":"current","text":"\"inline\"","type":"enum-value","url":"https://immersive-web.github.io/webxr/#dom-xrsessionmode-inline"},
+"https://immersive-web.github.io/webxr/#explicit-consent": {"displayText":"explicit consent","export":false,"for_":[],"level":"1","normative":true,"shortname":"webxr","spec":"webxr","status":"current","text":"explicit consent","type":"dfn","url":"https://immersive-web.github.io/webxr/#explicit-consent"},
+"https://immersive-web.github.io/webxr/#feature-descriptor": {"displayText":"feature descriptor","export":false,"for_":[],"level":"1","normative":true,"shortname":"webxr","spec":"webxr","status":"current","text":"feature descriptor","type":"dfn","url":"https://immersive-web.github.io/webxr/#feature-descriptor"},
+"https://immersive-web.github.io/webxr/#xr-device": {"displayText":"XR device","export":false,"for_":[],"level":"1","normative":true,"shortname":"webxr","spec":"webxr","status":"current","text":"xr device","type":"dfn","url":"https://immersive-web.github.io/webxr/#xr-device"},
+"https://immersive-web.github.io/webxr/#xrframe": {"displayText":"XRFrame","export":true,"for_":[],"level":"1","normative":true,"shortname":"webxr","spec":"webxr","status":"current","text":"XRFrame","type":"interface","url":"https://immersive-web.github.io/webxr/#xrframe"},
+"https://immersive-web.github.io/webxr/#xrsession": {"displayText":"XRSession","export":true,"for_":[],"level":"1","normative":true,"shortname":"webxr","spec":"webxr","status":"current","text":"XRSession","type":"interface","url":"https://immersive-web.github.io/webxr/#xrsession"},
+"https://immersive-web.github.io/webxr/#xrsession-xr-device": {"displayText":"XR device","export":false,"for_":["XRSession"],"level":"1","normative":true,"shortname":"webxr","spec":"webxr","status":"current","text":"xr device","type":"dfn","url":"https://immersive-web.github.io/webxr/#xrsession-xr-device"},
+"https://immersive-web.github.io/webxr/#xrspace": {"displayText":"XRSpace","export":true,"for_":[],"level":"1","normative":true,"shortname":"webxr","spec":"webxr","status":"current","text":"XRSpace","type":"interface","url":"https://immersive-web.github.io/webxr/#xrspace"},
+"https://immersive-web.github.io/webxr/#xrspace-native-origin": {"displayText":"native origin","export":false,"for_":["XRSpace"],"level":"1","normative":true,"shortname":"webxr","spec":"webxr","status":"current","text":"native origin","type":"dfn","url":"https://immersive-web.github.io/webxr/#xrspace-native-origin"},
+"https://infra.spec.whatwg.org/#ordered-map": {"displayText":"ordered map","export":true,"for_":[],"level":"1","normative":true,"shortname":"infra","spec":"infra","status":"current","text":"ordered map","type":"dfn","url":"https://infra.spec.whatwg.org/#ordered-map"},
+"https://webidl.spec.whatwg.org/#Exposed": {"displayText":"Exposed","export":true,"for_":[],"level":"1","normative":true,"shortname":"webidl","spec":"webidl","status":"current","text":"Exposed","type":"extended-attribute","url":"https://webidl.spec.whatwg.org/#Exposed"},
+"https://webidl.spec.whatwg.org/#SameObject": {"displayText":"SameObject","export":true,"for_":[],"level":"1","normative":true,"shortname":"webidl","spec":"webidl","status":"current","text":"SameObject","type":"extended-attribute","url":"https://webidl.spec.whatwg.org/#SameObject"},
+"https://webidl.spec.whatwg.org/#dfn-value-pairs-to-iterate-over": {"displayText":"value pairs to iterate over","export":true,"for_":[],"level":"1","normative":true,"shortname":"webidl","spec":"webidl","status":"current","text":"value pairs to iterate over","type":"dfn","url":"https://webidl.spec.whatwg.org/#dfn-value-pairs-to-iterate-over"},
+"https://webidl.spec.whatwg.org/#idl-unsigned-long": {"displayText":"unsigned long","export":true,"for_":[],"level":"1","normative":true,"shortname":"webidl","spec":"webidl","status":"current","text":"unsigned long","type":"interface","url":"https://webidl.spec.whatwg.org/#idl-unsigned-long"},
+"https://webidl.spec.whatwg.org/#this": {"displayText":"this","export":true,"for_":[],"level":"1","normative":true,"shortname":"webidl","spec":"webidl","status":"current","text":"this","type":"dfn","url":"https://webidl.spec.whatwg.org/#this"},
+"https://webidl.spec.whatwg.org/#value-pair": {"displayText":"value pair","export":false,"for_":[],"level":"1","normative":true,"shortname":"webidl","spec":"webidl","status":"current","text":"value pair","type":"dfn","url":"https://webidl.spec.whatwg.org/#value-pair"},
+};
+
+function mkRefHint(link, ref) {
+    const linkText = link.textContent;
+    let dfnTextElements = '';
+    if (ref.displayText.toLowerCase() != linkText.toLowerCase()) {
+        // Give the original term if it's being displayed in a different way.
+        // But allow casing differences, they're insignificant.
+        dfnTextElements =
+            mk.li({},
+                mk.b({}, "Term: "),
+                mk.span({}, ref.displayText)
+            );
+    }
+    const forList = ref.for_;
+    let forListElements;
+    if(forList.length == 0) {
+        forListElements = [];
+    } else if(forList.length == 1) {
+        forListElements = mk.li({},
+            mk.b({}, "For: "),
+            mk.span({}, forList[0]),
+        );
+    } else {
+        forListElements = mk.li({},
+            mk.b({}, "For: "),
+            mk.ul({},
+                ...forList.map(forItem =>
+                    mk.li({},
+                        mk.span({}, forItem)
+                    ),
+                ),
+            ),
+        );
+    }
+    const url = ref.url;
+    const safeUrl = encodeURIComponent(url);
+    const hintPanel = mk.aside({
+        class: "ref-hint",
+        id: `ref-hint-for-${safeUrl}`,
+        "data-for": url,
+        "aria-labelled-by": `ref-hint-for-${safeUrl}`,
+    },
+        mk.ul({},
+            dfnTextElements,
+            mk.li({},
+                mk.b({}, "URL: "),
+                mk.a({ href: url, class: "ref" }, url),
+            ),
+            mk.li({},
+                mk.b({}, "Type: "),
+                mk.span({}, `${ref.type}`),
+            ),
+            mk.li({},
+                mk.b({}, "Spec: "),
+                mk.span({}, `${ref.spec ? ref.spec : ''}`),
+            ),
+            forListElements
+        ),
+    );
+    hintPanel.forLink = link;
+    setupRefHintEventListeners(link, hintPanel);
+    return hintPanel;
+}
+
+function hideAllRefHints() {
+    queryAll(".ref-hint").forEach(el=>hideRefHint(el));
+}
+
+function hideRefHint(refHint) {
+    const link = refHint.forLink;
+    link.setAttribute("aria-expanded", "false");
+    if(refHint.teardownEventListeners) {
+        refHint.teardownEventListeners();
+    }
+    refHint.remove();
+}
+
+function showRefHint(link) {
+    if(link.classList.contains("dfn-link")) return;
+    const url = link.getAttribute("href");
+    const refHintKey = link.getAttribute("data-refhint-key");
+    let key = url;
+    if(refHintKey) {
+        key = refHintKey + "_" + url;
+    }
+    const ref = refsData[key];
+    if(!ref) return;
+
+    hideAllRefHints(); // Only display one at this time.
+
+    const refHint = mkRefHint(link, ref);
+    append(document.body, refHint);
+    link.setAttribute("aria-expanded", "true");
+    positionRefHint(refHint);
+}
+
+function setupRefHintEventListeners(link, refHint) {
+    if (refHint.teardownEventListeners) return;
+    // Add event handlers to hide the refHint after the user moves away
+    // from both the link and refHint, if not hovering either within one second.
+    let timeout = null;
+    const startHidingRefHint = (event) => {
+        if (timeout) {
+            clearTimeout(timeout);
+        }
+        timeout = setTimeout(() => {
+            hideRefHint(refHint);
+        }, 1000);
+    }
+    const resetHidingRefHint = (event) => {
+        if (timeout) clearTimeout(timeout);
+        timeout = null;
+    };
+    link.addEventListener("mouseleave", startHidingRefHint);
+    link.addEventListener("mouseenter", resetHidingRefHint);
+    link.addEventListener("blur", startHidingRefHint);
+    link.addEventListener("focus", resetHidingRefHint);
+    refHint.addEventListener("mouseleave", startHidingRefHint);
+    refHint.addEventListener("mouseenter", resetHidingRefHint);
+    refHint.addEventListener("blur", startHidingRefHint);
+    refHint.addEventListener("focus", resetHidingRefHint);
+
+    refHint.teardownEventListeners = () => {
+        // remove event listeners
+        resetHidingRefHint();
+        link.removeEventListener("mouseleave", startHidingRefHint);
+        link.removeEventListener("mouseenter", resetHidingRefHint);
+        link.removeEventListener("blur", startHidingRefHint);
+        link.removeEventListener("focus", resetHidingRefHint);
+        refHint.removeEventListener("mouseleave", startHidingRefHint);
+        refHint.removeEventListener("mouseenter", resetHidingRefHint);
+        refHint.removeEventListener("blur", startHidingRefHint);
+        refHint.removeEventListener("focus", resetHidingRefHint);
+    };
+}
+
+function positionRefHint(refHint) {
+    const link = refHint.forLink;
+    const linkPos = getBounds(link);
+    refHint.style.top = linkPos.bottom + "px";
+    refHint.style.left = linkPos.left + "px";
+
+    const panelPos = refHint.getBoundingClientRect();
+    const panelMargin = 8;
+    const maxRight = document.body.parentNode.clientWidth - panelMargin;
+    if (panelPos.right > maxRight) {
+        const overflowAmount = panelPos.right - maxRight;
+        const newLeft = Math.max(panelMargin, linkPos.left - overflowAmount);
+        refHint.style.left = newLeft + "px";
+    }
+}
+
+// TODO: shared util
+// Returns the root-level absolute position {left and top} of element.
+function getBounds(el, relativeTo=document.body) {
+    const relativeRect = relativeTo.getBoundingClientRect();
+    const elRect = el.getBoundingClientRect();
+    const top = elRect.top - relativeRect.top;
+    const left = elRect.left - relativeRect.left;
+    return {
+        top,
+        left,
+        bottom: top + elRect.height,
+        right: left + elRect.width,
+    }
+}
+
+function showRefHintListener(e) {
+    // If the target isn't in a link (or is a link),
+    // just ignore it.
+    let link = e.target.closest("a");
+    if(!link) return;
+
+    // If the target is in a ref-hint panel
+    // (aka a link in the already-open one),
+    // also just ignore it.
+    if(link.closest(".ref-hint")) return;
+
+    // Otherwise, show the panel for the link.
+    showRefHint(link);
+}
+
+function hideAllHintsListener(e) {
+    // If the click is inside a ref-hint panel, ignore it.
+    if(e.target.closest(".ref-hint")) return;
+    // Otherwise, close all the current panels.
+    hideAllRefHints();
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    document.body.addEventListener("mousedown", showRefHintListener);
+    document.body.addEventListener("focus", showRefHintListener);
+
+    document.body.addEventListener("click", hideAllHintsListener);
+});
+
+window.addEventListener("resize", () => {
+    // Hide any open ref hint.
+    hideAllRefHints();
+});
+}
+</script>
+<script>/* Boilerplate: script-var-click-highlighting */
+"use strict";
+{
+/*
+Color-choosing design:
+
+* Colors are ordered by goodness.
+* On clicking a var, give it the earliest color
+    with the lowest usage in the algorithm.
+* On re-clicking, re-use the var's most recent color
+    if that's not currently being used elsewhere.
+*/
+
+const COLOR_COUNT = 7;
+
+document.addEventListener("click", e=>{
+    if(e.target.nodeName == "VAR") {
+        highlightSameAlgoVars(e.target);
+    }
+});
+
+function highlightSameAlgoVars(v) {
+    // Find the algorithm container.
+    let algoContainer = findAlgoContainer(v);
+
+    // Not highlighting document-global vars,
+    // too likely to be unrelated.
+    if(algoContainer == null) return;
+
+    const varName = nameFromVar(v);
+    if(!v.hasAttribute("data-var-color")) {
+        const newColor = chooseHighlightColor(algoContainer, v);
+        for(const el of algoContainer.querySelectorAll("var")) {
+            if(nameFromVar(el) == varName) {
+                el.setAttribute("data-var-color", newColor);
+                el.setAttribute("data-var-last-color", newColor);
+            }
+        }
+    } else {
+        for(const el of algoContainer.querySelectorAll("var")) {
+            if(nameFromVar(el) == varName) {
+                el.removeAttribute("data-var-color");
+            }
+        }
+    }
+}
+function findAlgoContainer(el) {
+    while(el != document.body) {
+        if(el.hasAttribute("data-algorithm")) return el;
+        el = el.parentNode;
+    }
+    return null;
+}
+function nameFromVar(el) {
+    return el.textContent.replace(/(\s|\xa0)+/g, " ").trim();
+}
+function colorCountsFromContainer(container) {
+    const namesFromColor = Array.from({length:COLOR_COUNT}, x=>new Set());
+    for(let v of container.querySelectorAll("var[data-var-color]")) {
+        let color = +v.getAttribute("data-var-color");
+        namesFromColor[color].add(nameFromVar(v));
+    }
+
+    return namesFromColor.map(x=>x.size);
+}
+function leastUsedColor(colors) {
+    // Find the earliest color with the lowest count.
+    let minCount = Infinity;
+    let minColor = null;
+    for(var i = 0; i < colors.length; i++) {
+        if(colors[i] < minCount) {
+            minColor = i;
+            minCount = colors[i];
+        }
+    }
+    return minColor;
+}
+function chooseHighlightColor(container, v) {
+    const colorCounts = colorCountsFromContainer(container);
+    if(v.hasAttribute("data-var-last-color")) {
+        let color = +v.getAttribute("data-var-last-color");
+        if(colorCounts[color] == 0) return color;
+    }
+    return leastUsedColor(colorCounts);
+}
+}
+</script>
