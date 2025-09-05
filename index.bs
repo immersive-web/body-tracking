@@ -3,7 +3,7 @@ Shortname: webxr-body-tracking
 Title: WebXR Body Tracking Module - Level 1
 Group: immersivewebcg
 Status: CG-DRAFT
-ED: https://immersive-web.github.io/webxr-body-tracking/
+ED: https://immersive-web.github.io/body-tracking/
 Repository: immersive-web/body-tracking
 Level: 1
 Mailing List Archives: https://lists.w3.org/Archives/Public/public-immersive-web-wg/
