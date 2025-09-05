@@ -1,17 +1,15 @@
 <pre class="metadata">
 Shortname: webxr-body-tracking
 Title: WebXR Body Tracking Module - Level 1
-Group: immersivewebwg
-Status: UD
-TR: https://www.w3.org/TR/webxr-body-tracking-1/
+Group: immersivewebcg
+Status: CG-DRAFT
 ED: https://immersive-web.github.io/webxr-body-tracking/
-Previous Version: https://www.w3.org/TR/2020/WD-webxr-body-tracking-1-20210824/
-Repository: immersive-web/webxr-body-tracking
+Repository: immersive-web/body-tracking
 Level: 1
 Mailing List Archives: https://lists.w3.org/Archives/Public/public-immersive-web-wg/
 
-!Participate: <a href="https://github.com/immersive-web/webxr-body-tracking/issues/new">File an issue</a> (<a href="https://github.com/immersive-web/webxr-body-tracking/issues">open issues</a>)
-!Participate: <a href="https://lists.w3.org/Archives/Public/public-immersive-web-wg/">Mailing list archive</a>
+!Participate: <a href="https://github.com/immersive-web/body-tracking/issues/new">File an issue</a> (<a href="https://github.com/immersive-web/body-tracking/issues">open issues</a>)
+!Participate: <a href="https://lists.w3.org/Archives/Public/public-immersive-web/">Mailing list archive</a>
 !Participate: <a href="irc://irc.w3.org:6665/">W3C's #immersive-web IRC</a>
 
 Editor: Rik Cabanier, Meta, cabanier@meta.com
