@@ -3,11 +3,12 @@
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
   <title>WebXR Body Tracking Module - Level 1</title>
-  <meta content="UD" name="w3c-status">
-  <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-UD" rel="stylesheet">
-  <meta content="Bikeshed version 9a7a6709a, updated Tue May 27 16:45:34 2025 -0700" name="generator">
-  <link href="https://www.w3.org/TR/webxr-body-tracking-1/" rel="canonical">
-  <meta content="516feef118e626b2e1af70287e3e5595cfdc3a21" name="revision">
+  <meta content="CG-DRAFT" name="w3c-status">
+  <link href="https://www.w3.org/StyleSheets/TR/2021/cg-draft" rel="stylesheet">
+  <meta content="Bikeshed version 3f621ba99, updated Mon Jul 28 15:38:36 2025 -0700" name="generator">
+  <link href="https://immersive-web.github.io/body-tracking/" rel="canonical">
+  <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
+  <meta content="9d44b6f3ba3b3d745a9ed2f566c7b0c6d9ca792d" name="revision">
   <meta content="dark light" name="color-scheme">
   <link href="https://www.w3.org/StyleSheets/TR/2021/dark.css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css">
   <link href="favicon-32x32.png" rel="icon" sizes="32x32" type="image/png">
@@ -791,32 +792,33 @@ var[data-var-color="6"] { --var-vg: #FFBCF2; }
 </style>
  <body class="h-entry">
   <div class="head">
-   <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
+   <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/">
+    <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72">
+</a>
+</p>
    <h1 class="p-name no-ref" id="title">WebXR Body Tracking Module - Level 1</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types/#UD">Unofficial Proposal Draft</a>, <time class="dt-updated" datetime="2025-06-05">5 June 2025</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types/#CG-DRAFT">Draft Community Group Report</a>,
+    <time class="dt-updated" datetime="2025-09-05">5 September 2025</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
      <dl>
       <dt>This version:
-      <dd><a class="u-url" href="https://immersive-web.github.io/webxr-body-tracking/">https://immersive-web.github.io/webxr-body-tracking/</a>
-      <dt>Latest published version:
-      <dd><a href="https://www.w3.org/TR/webxr-body-tracking-1/">https://www.w3.org/TR/webxr-body-tracking-1/</a>
-      <dt>Previous Versions:
-      <dd><a href="https://www.w3.org/TR/2020/WD-webxr-body-tracking-1-20210824/" rel="prev">https://www.w3.org/TR/2020/WD-webxr-body-tracking-1-20210824/</a>
-      <dt>Feedback:
-      <dd><a href="https://github.com/immersive-web/webxr-body-tracking/issues/">GitHub</a>
+      <dd><a class="u-url" href="https://immersive-web.github.io/body-tracking/">https://immersive-web.github.io/body-tracking/</a>
+      <dt>Issue Tracking:
+      <dd><a href="https://github.com/immersive-web/body-tracking/issues/">GitHub</a>
       <dt class="editor">Editor:
       <dd class="editor p-author h-card vcard"><a class="p-name fn u-email email" href="mailto:cabanier@meta.com">Rik Cabanier</a> (<span class="p-org org">Meta</span>)
       <dt>Participate:
-      <dd><a href="https://github.com/immersive-web/webxr-body-tracking/issues/new">File an issue</a> (<a href="https://github.com/immersive-web/webxr-body-tracking/issues">open issues</a>)
-      <dd><a href="https://lists.w3.org/Archives/Public/public-immersive-web-wg/">Mailing list archive</a>
+      <dd><a href="https://github.com/immersive-web/body-tracking/issues/new">File an issue</a> (<a href="https://github.com/immersive-web/body-tracking/issues">open issues</a>)
+      <dd><a href="https://lists.w3.org/Archives/Public/public-immersive-web/">Mailing list archive</a>
       <dd><a href="irc://irc.w3.org:6665/">W3C’s #immersive-web IRC</a>
      </dl>
     </div>
    </details>
    <div data-fill-with="warning"></div>
-   <p class="copyright" data-fill-with="copyright"><a href="https://www.w3.org/policies/#copyright">Copyright</a> © 2025 <a href="https://www.w3.org/">World Wide Web Consortium</a>. <abbr title="World Wide Web Consortium">W3C</abbr><sup>®</sup> <a href="https://www.w3.org/policies/#Legal_Disclaimer">liability</a>, <a href="https://www.w3.org/policies/#W3C_Trademarks">trademark</a> and <a href="https://www.w3.org/copyright/software-license/" rel="license" title="W3C Software and Document License">permissive document license</a> rules apply. </p>
+   <p class="copyright" data-fill-with="copyright"><a href="https://www.w3.org/policies/#copyright">Copyright</a> © 2025 <a href="https://www.w3.org/">World Wide Web Consortium</a>. <abbr title="World Wide Web Consortium">W3C</abbr><sup>®</sup> <a href="https://www.w3.org/policies/#Legal_Disclaimer">liability</a>, <a href="https://www.w3.org/policies/#W3C_Trademarks">trademark</a> and <a href="https://www.w3.org/copyright/software-license/" rel="license" title="W3C Software and Document License">permissive document license</a> rules apply.
+</p>
    <hr title="Separator for header">
   </div>
   <div class="p-summary" data-fill-with="abstract">
@@ -842,7 +844,8 @@ var[data-var-color="6"] { --var-vg: #FFBCF2; }
       <li><a href="#xrjointspace-interface"><span class="secno">2.4</span> <span class="content">XRBodySpace</span></a>
      </ol>
     <li><a href="#privacy-security"><span class="secno">3</span> <span class="content">Privacy &amp; Security Considerations</span></a>
-    <li><a href="#changes"><span class="secno"></span> <span class="content"> Changes</span></a>
+    <li><a href="#changes"><span class="secno"></span> <span class="content">
+Changes</span></a>
     <li>
      <a href="#w3c-conformance"><span class="secno"></span> <span class="content">Conformance</span></a>
      <ol class="toc">
@@ -866,7 +869,10 @@ var[data-var-color="6"] { --var-vg: #FFBCF2; }
   <main>
    <h2 class="heading settled" data-level="1" id="intro"><span class="secno">1. </span><span class="content">Introduction</span><a class="self-link" href="#intro"></a></h2>
    <section class="non-normative">
-     On some <a data-link-type="dfn" href="https://immersive-web.github.io/webxr/#xr-device" id="ref-for-xr-device">XR devices</a> it is possible to get fully articulated information about the user’s body. 
+    
+On some <a data-link-type="dfn" href="https://immersive-web.github.io/webxr/#xr-device" id="ref-for-xr-device">XR devices</a> it is possible to get fully articulated information about the user’s body.
+
+
     <p>This API exposes the poses of each of the users' <a data-link-type="dfn" href="#body-joints" id="ref-for-body-joints">body joints</a>. This can be used to render an avatar in VR scenarios.</p>
    </section>
    <h2 class="heading settled" data-level="2" id="initialization"><span class="secno">2. </span><span class="content">Initialization</span><a class="self-link" href="#initialization"></a></h2>
@@ -982,18 +988,26 @@ by this module as a new valid <a data-link-type="dfn" href="https://immersive-we
 </pre>
    <p>The <code class="idl"><a data-link-type="idl" href="#enumdef-xrbodyjoint" id="ref-for-enumdef-xrbodyjoint③">XRBodyJoint</a></code> enum defines the various joints that each <code class="idl"><a data-link-type="idl" href="#xrbody" id="ref-for-xrbody②">XRBody</a></code> MUST contain.</p>
    <div class="algorithm" data-algorithm="XRBody.[[joints]]">
-     Each <code class="idl"><a data-link-type="idl" href="#xrbody" id="ref-for-xrbody③">XRBody</a></code> object has a <dfn class="dfn-paneled idl-code" data-dfn-for="XRBody" data-dfn-type="attribute" data-export id="dom-xrbody-joints-slot"><code>[[joints]]</code></dfn> internal slot,
-    which is an <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map">ordered map</a> of pairs with the key of type <code class="idl"><a data-link-type="idl" href="#enumdef-xrbodyjoint" id="ref-for-enumdef-xrbodyjoint④">XRBodyJoint</a></code> and the value of type <code class="idl"><a data-link-type="idl" href="#xrbodyspace" id="ref-for-xrbodyspace②">XRBodySpace</a></code>. 
+    
+    Each <code class="idl"><a data-link-type="idl" href="#xrbody" id="ref-for-xrbody③">XRBody</a></code> object has a <dfn class="dfn-paneled idl-code" data-dfn-for="XRBody" data-dfn-type="attribute" data-export id="dom-xrbody-joints-slot"><code>[[joints]]</code></dfn> internal slot,
+    which is an <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map">ordered map</a> of pairs with the key of type <code class="idl"><a data-link-type="idl" href="#enumdef-xrbodyjoint" id="ref-for-enumdef-xrbodyjoint④">XRBodyJoint</a></code> and the value of type <code class="idl"><a data-link-type="idl" href="#xrbodyspace" id="ref-for-xrbodyspace②">XRBodySpace</a></code>.
+
+
     <p>The ordering of the <code class="idl"><a data-link-type="idl" href="#dom-xrbody-joints-slot" id="ref-for-dom-xrbody-joints-slot">[[joints]]</a></code> internal slot is given by the <code class="idl"><a data-link-type="idl" href="#enumdef-xrbodyjoint" id="ref-for-enumdef-xrbodyjoint⑤">list of joints</a></code> under <a data-link-type="dfn" href="#body-joints" id="ref-for-body-joints④">body joints</a>.</p>
     <p><code class="idl"><a data-link-type="idl" href="#dom-xrbody-joints-slot" id="ref-for-dom-xrbody-joints-slot①">[[joints]]</a></code> MUST NOT change over the course of a session.</p>
    </div>
-   <div class="algorithm" data-algorithm="XRBody.iterator"> The <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-value-pairs-to-iterate-over" id="ref-for-dfn-value-pairs-to-iterate-over">value pairs to iterate over</a> for an <code class="idl"><a data-link-type="idl" href="#xrbody" id="ref-for-xrbody④">XRBody</a></code> object are the list of <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#value-pair" id="ref-for-value-pair">value pairs</a> with the key being
+   <div class="algorithm" data-algorithm="XRBody.iterator">
+    The <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-value-pairs-to-iterate-over" id="ref-for-dfn-value-pairs-to-iterate-over">value pairs to iterate over</a> for an <code class="idl"><a data-link-type="idl" href="#xrbody" id="ref-for-xrbody④">XRBody</a></code> object are the list of <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#value-pair" id="ref-for-value-pair">value pairs</a> with the key being
     the <code class="idl"><a data-link-type="idl" href="#enumdef-xrbodyjoint" id="ref-for-enumdef-xrbodyjoint⑥">XRBodyJoint</a></code> and the value being the <code class="idl"><a data-link-type="idl" href="#xrbodyspace" id="ref-for-xrbodyspace③">XRBodySpace</a></code> corresponding to that <code class="idl"><a data-link-type="idl" href="#enumdef-xrbodyjoint" id="ref-for-enumdef-xrbodyjoint⑦">XRBodyJoint</a></code>, ordered by <code class="idl"><a data-link-type="idl" href="#enumdef-xrbodyjoint" id="ref-for-enumdef-xrbodyjoint⑧">list of joints</a></code>}
-    under <a data-link-type="dfn" href="#body-joints" id="ref-for-body-joints⑤">body joints</a>. </div>
+    under <a data-link-type="dfn" href="#body-joints" id="ref-for-body-joints⑤">body joints</a>.
+</div>
    <p>If an individual device does not support a joint defined in this specification, it MUST emulate it instead.</p>
    <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="XRBody" data-dfn-type="attribute" data-export id="dom-xrbody-size"><code>size</code></dfn> attribute MUST return the number <code>83</code>.</p>
    <div class="algorithm" data-algorithm="index-joint-space">
-     The <dfn class="dfn-paneled idl-code" data-dfn-for="XRBody" data-dfn-type="method" data-export id="dom-xrbody-get-jointname"><code>get(<var>jointName</var>)</code></dfn> method when invoked on an <code class="idl"><a data-link-type="idl" href="#xrbody" id="ref-for-xrbody⑤">XRBody</a></code> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①">this</a> MUST run the following steps: 
+    
+The <dfn class="dfn-paneled idl-code" data-dfn-for="XRBody" data-dfn-type="method" data-export id="dom-xrbody-get-jointname"><code>get(<var>jointName</var>)</code></dfn> method when invoked on an <code class="idl"><a data-link-type="idl" href="#xrbody" id="ref-for-xrbody⑤">XRBody</a></code> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①">this</a> MUST run the following steps:
+
+
     <ol>
      <li data-md>
       <p>Let <var>joints</var> be the value of <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this②">this</a>’s <code class="idl"><a data-link-type="idl" href="#dom-xrbody-joints-slot" id="ref-for-dom-xrbody-joints-slot②">[[joints]]</a></code> internal slot.</p>
@@ -1018,14 +1032,20 @@ by this module as a new valid <a data-link-type="dfn" href="https://immersive-we
    <p><dfn class="dfn-paneled" data-dfn-for="XRBodySpace" data-dfn-type="dfn" data-noexport id="xrbodyspace-jointname">jointName</dfn> returns the joint name of the joint it tracks.</p>
    <p>Every <code class="idl"><a data-link-type="idl" href="#xrbodyspace" id="ref-for-xrbodyspace⑧">XRBodySpace</a></code> has an associated <dfn class="dfn-paneled" data-dfn-for="XRBodySpace" data-dfn-type="dfn" data-noexport id="xrbodyspace-joint">joint</dfn>, which is the <a data-link-type="dfn" href="#body-joints" id="ref-for-body-joints⑨">body joint</a> corresponding to the <a data-link-type="dfn" href="#xrbodyspace-jointname" id="ref-for-xrbodyspace-jointname">jointName</a>.</p>
    <h2 class="heading settled" data-level="3" id="privacy-security"><span class="secno">3. </span><span class="content">Privacy &amp; Security Considerations</span><a class="self-link" href="#privacy-security"></a></h2>
-    The WebXR Body Tracking API is a powerful feature that carries significant privacy risks. 
+   
+The WebXR Body Tracking API is a powerful feature that carries significant privacy risks.
+
+
    <p>Since this feature MAY return new sensor data, the User Agent MUST ask for <a data-link-type="dfn" href="https://immersive-web.github.io/webxr/#explicit-consent" id="ref-for-explicit-consent">explicit consent</a> from the user at session creation time.</p>
    <p>Data returned from this API, MUST NOT be so specific that one can detect individual users.
 If the underlying hardware returns data that is too precise, the User Agent MUST anonymize this data
 before revealing it through the WebXR Body Tracking API.</p>
-   <p>This API MUST only be supported in XRSessions created with XRSessionMode of <code class="idl"><a data-link-type="idl" href="https://immersive-web.github.io/webxr/#dom-xrsessionmode-immersive-vr" id="ref-for-dom-xrsessionmode-immersive-vr">"immersive-vr"</a></code> or <code class="idl"><a data-link-type="idl" href="https://immersive-web.github.io/webxr-ar-module/#dom-xrsessionmode-immersive-ar" id="ref-for-dom-xrsessionmode-immersive-ar">"immersive-ar"</a></code>. <code class="idl"><a data-link-type="idl" href="https://immersive-web.github.io/webxr/#dom-xrsessionmode-inline" id="ref-for-dom-xrsessionmode-inline">"inline"</a></code> sessions MUST not support this API.</p>
+   <p>This API MUST only be supported in XRSessions created with XRSessionMode of <code class="idl"><a data-link-type="idl" href="https://immersive-web.github.io/webxr/#dom-xrsessionmode-immersive-vr" id="ref-for-dom-xrsessionmode-immersive-vr">"immersive-vr"</a></code>
+or <code class="idl"><a data-link-type="idl" href="https://immersive-web.github.io/webxr-ar-module/#dom-xrsessionmode-immersive-ar" id="ref-for-dom-xrsessionmode-immersive-ar">"immersive-ar"</a></code>. <code class="idl"><a data-link-type="idl" href="https://immersive-web.github.io/webxr/#dom-xrsessionmode-inline" id="ref-for-dom-xrsessionmode-inline">"inline"</a></code> sessions MUST not support this API.</p>
    <div class="note" role="note">
-     When anonymizing the body data, the UA can follow these guidelines: 
+    
+When anonymizing the body data, the UA can follow these guidelines:
+
     <ul>
      <li data-md>
       <p>Noising is discouraged in favour of rounding.</p>
@@ -1045,7 +1065,8 @@ before revealing it through the WebXR Body Tracking API.</p>
       <p>Anonymization must be done in a trusted environment.</p>
     </ul>
    </div>
-   <h2 class="no-num heading settled" id="changes"><span class="content"> Changes</span><a class="self-link" href="#changes"></a></h2>
+   <h2 class="no-num heading settled" id="changes"><span class="content">
+Changes</span><a class="self-link" href="#changes"></a></h2>
   </main>
   <div data-fill-with="conformance">
    <h2 class="no-ref no-num heading settled" id="w3c-conformance"><span class="content">Conformance</span><a class="self-link" href="#w3c-conformance"></a></h2>
@@ -1057,21 +1078,31 @@ before revealing it through the WebXR Body Tracking API.</p>
     in the normative parts of this document
     are to be interpreted as described in RFC 2119.
     However, for readability,
-    these words do not appear in all uppercase letters in this specification. </p>
+    these words do not appear in all uppercase letters in this specification.
+
+    </p>
    <p>All of the text of this specification is normative
-    except sections explicitly marked as non-normative, examples, and notes. <a data-link-type="biblio" href="#biblio-rfc2119" title="Key words for use in RFCs to Indicate Requirement Levels">[RFC2119]</a> </p>
+    except sections explicitly marked as non-normative, examples, and notes. <a data-link-type="biblio" href="#biblio-rfc2119" title="Key words for use in RFCs to Indicate Requirement Levels">[RFC2119]</a>
+
+    </p>
    <p>Examples in this specification are introduced with the words “for example”
     or are set apart from the normative text
     with <code>class="example"</code>,
-    like this: </p>
+    like this:
+
+    </p>
    <div class="example" id="w3c-example">
-    <a class="self-link" href="#w3c-example"></a> 
-    <p>This is an example of an informative example. </p>
+    <a class="self-link" href="#w3c-example"></a>
+        
+    <p>This is an example of an informative example.
+    </p>
    </div>
    <p>Informative notes begin with the word “Note”
     and are set apart from the normative text
     with <code>class="note"</code>,
-    like this: </p>
+    like this:
+
+    </p>
    <p class="note" role="note">Note, this is an informative note.</p>
   </div>
   <script src="https://www.w3.org/scripts/TR/2021/fixup.js"></script>
